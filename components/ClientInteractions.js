@@ -35,10 +35,16 @@ export default function ClientInteractions() {
     };
     window.addEventListener("resize", onResizeCloseMenu);
 
+    // Alcuni elementi (main text, servizi) esistono solo nella home: questo
+    // componente viene riusato anche in pagine interne (es. dettaglio
+    // Portfolio) che hanno solo header/footer/mobile-menu, quindi ogni
+    // blocco qui sotto è "difensivo" e si disattiva da solo se l'elemento
+    // di riferimento non è presente nella pagina corrente.
     const revealEl = document.getElementById("revealText");
-    const words = revealEl.querySelectorAll(".word");
+    const words = revealEl ? revealEl.querySelectorAll(".word") : [];
     const mainTextSection = document.getElementById("main-text");
     function updateReveal() {
+      if (!mainTextSection || !words.length) return;
       const rect = mainTextSection.getBoundingClientRect();
       const vh = window.innerHeight;
       const start = vh * 0.85;
@@ -84,7 +90,7 @@ export default function ClientInteractions() {
       serviziPanelEls.forEach((p, idx) => p.classList.toggle("active", idx === i));
     }
     function updateServizi() {
-      if (window.innerWidth <= 880) return;
+      if (!serviziPin || !serviziProgress || window.innerWidth <= 880) return;
       const rect = serviziPin.getBoundingClientRect();
       const vh = window.innerHeight;
       const scrollable = rect.height - vh;
@@ -95,7 +101,7 @@ export default function ClientInteractions() {
     }
     const onServiziClick = (i) => () => {
       setActiveServizio(i);
-      if (window.innerWidth > 880) {
+      if (serviziPin && window.innerWidth > 880) {
         const rect = serviziPin.getBoundingClientRect();
         const vh = window.innerHeight;
         const scrollableRange = rect.height - vh;

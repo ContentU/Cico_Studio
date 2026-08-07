@@ -1,3 +1,4 @@
+import Link from "next/link";
 import BrandMark from "./Logo";
 import { footerLinks } from "../lib/content";
 
@@ -16,9 +17,9 @@ export default function Footer() {
       </div>
       <div className="footer-grid">
         <div>
-          <a href="#top" className="footer-logo">
+          <Link href="/" className="footer-logo">
             <BrandMark />
-          </a>
+          </Link>
           <p className="footer-tagline">
             Centro Immagine e Comunicazione per l&apos;Ospitalità. Palermo, Sicilia.
           </p>
@@ -32,9 +33,9 @@ export default function Footer() {
         <div className="footer-col">
           <h5>Servizi</h5>
           {footerLinks.servizi.map((l) => (
-            <a href={l.href} key={l.label}>
+            <Link href={l.href} key={l.label}>
               {l.label}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="footer-col">

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { portfolioItems, brandColors } from "../lib/content";
 
 export default function Portfolio() {
@@ -15,7 +16,7 @@ export default function Portfolio() {
       </div>
       <div className="portfolio-grid" id="portfolioGrid">
         {portfolioItems.map((item, i) => (
-          <div className="p-card" key={item.title}>
+          <Link href={`/portfolio/${item.slug}`} className="p-card" key={item.title}>
             <div
               className="p-media"
               style={{
@@ -35,7 +36,7 @@ export default function Portfolio() {
                 ))}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
