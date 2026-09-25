@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { portfolioItems, brandColors } from "../lib/content";
+import { brandColors } from "../lib/content";
 
-export default function Portfolio() {
+export default function Portfolio({ items }) {
   return (
     <section className="portfolio" id="portfolio">
       <div className="section-head">
@@ -15,8 +15,8 @@ export default function Portfolio() {
         </p>
       </div>
       <div className="portfolio-grid" id="portfolioGrid">
-        {portfolioItems.map((item, i) => (
-          <Link href={`/portfolio/${item.slug}`} className="p-card" key={item.title}>
+        {items.map((item, i) => (
+          <Link href={`/portfolio/${item.slug}`} className="p-card" key={item.slug}>
             <div
               className="p-media"
               style={{
@@ -28,8 +28,8 @@ export default function Portfolio() {
             <div className="p-body">
               <h3>{item.title}</h3>
               <div className="tags">
-                <span className="tag cat">{item.cat}</span>
-                {item.tags.map((t) => (
+                {item.macroarea && <span className="tag cat">{item.macroarea}</span>}
+                {(item.tags || []).slice(0, 3).map((t) => (
                   <span className="tag" key={t}>
                     {t}
                   </span>

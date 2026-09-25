@@ -8,8 +8,11 @@ import Lavoriamo from "../components/Lavoriamo";
 import Blog from "../components/Blog";
 import Footer from "../components/Footer";
 import ClientInteractions from "../components/ClientInteractions";
+import { getAllPortfolio } from "../lib/wp";
 
-export default function Home() {
+export default async function Home() {
+  const portfolioHome = (await getAllPortfolio()).slice(0, 6);
+
   return (
     <>
       <div className="font-note">
@@ -20,7 +23,7 @@ export default function Home() {
       <MobileMenu />
       <Hero />
       <MainText />
-      <Portfolio />
+      <Portfolio items={portfolioHome} />
       <Servizi />
       <Lavoriamo />
       <Blog />
