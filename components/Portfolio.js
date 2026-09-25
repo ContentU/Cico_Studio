@@ -39,6 +39,11 @@ export default function Portfolio() {
           </Link>
         ))}
       </div>
+      <div className="portfolio-cta">
+        <Link href="/portfolio" className="btn-secondary">
+          Vedi tutto il portfolio
+        </Link>
+      </div>
     </section>
   );
 }

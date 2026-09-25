@@ -7,6 +7,7 @@ import ProjectHero from "../../../components/portfolio/ProjectHero";
 import ProjectTitle from "../../../components/portfolio/ProjectTitle";
 import Scheda from "../../../components/portfolio/Scheda";
 import Gallery from "../../../components/portfolio/Gallery";
+import VideoHero from "../../../components/portfolio/VideoHero";
 import RelatedPortfolio from "../../../components/portfolio/RelatedPortfolio";
 import RelatedBlog from "../../../components/portfolio/RelatedBlog";
 import {
@@ -55,6 +56,7 @@ export default async function PortfolioDetailPage({ params }) {
       <ProjectTitle item={item} />
       <Scheda item={item} />
       <Gallery item={item} />
+      <VideoHero item={item} />
       <RelatedPortfolio items={relatedPortfolio} />
       <RelatedBlog items={relatedBlog} />
       <Footer />

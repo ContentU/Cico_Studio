@@ -1,20 +1,14 @@
 import { brandColors } from "../../lib/content";
 
-// Layout a griglia con span variabili, identico al prototipo statico.
-// Usa le immagini reali della Gallery ACF quando presenti (item.gallery),
-// altrimenti mostra i placeholder colorati "foto in arrivo".
-const PLACEHOLDER_LAYOUT = [
-  { col: 2, row: 2 },
-  { col: 1, row: 1 },
-  { col: 1, row: 1 },
-  { col: 1, row: 1 },
-  { col: 1, row: 1 },
-  { col: 2, row: 1 },
-];
+// Griglia quadrata 1:1: 4 colonne desktop/tablet, 2 su mobile (vedi
+// .gallery-grid in globals.css). Con immagini reali (item.gallery, da
+// acf.photo_gallery.gallery) ogni tile apre il lightbox a scorrimento
+// gestito in ClientInteractions.js; senza immagini reali mostra 8
+// placeholder colorati "foto in arrivo", non cliccabili.
+const PLACEHOLDER_COUNT = 8;
 
 export default function Gallery({ item }) {
   const images = item.gallery && item.gallery.length ? item.gallery : null;
-  const layout = images ? images.map(() => ({ col: 1, row: 1 })) : PLACEHOLDER_LAYOUT;
 
   return (
     <section className="gallery-section">
@@ -26,29 +20,54 @@ export default function Gallery({ item }) {
           </h2>
         </div>
       </div>
-      <div className="gallery-grid">
-        {layout.map((g, i) => (
-          <div
-            className={`g-item${images ? " has-image" : ""}`}
-            key={i}
-            style={{
-              gridColumn: `span ${g.col}`,
-              gridRow: `span ${g.row}`,
-              ...(images
-                ? {
-                    backgroundImage: `url(${images[i]})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }
-                : {
-                    background: `linear-gradient(135deg, ${brandColors[i % 4]}2e, ${
-                      brandColors[(i + 1) % 4]
-                    }55)`,
-                  }),
-            }}
-          />
-        ))}
+
+      <div className="gallery-grid" id="galleryGrid">
+        {images
+          ? images.map((img, i) => (
+              <button
+                type="button"
+                className="g-item has-image"
+                key={img.full}
+                data-gallery-index={i}
+                aria-label={`Apri immagine ${i + 1} di ${images.length}`}
+                style={{
+                  backgroundImage: `url(${img.grid})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              />
+            ))
+          : Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => (
+              <div
+                className="g-item"
+                key={i}
+                style={{
+                  background: `linear-gradient(135deg, ${brandColors[i % 4]}2e, ${
+                    brandColors[(i + 1) % 4]
+                  }55)`,
+                }}
+              />
+            ))}
       </div>
+
+      {/* Lightbox a scorrimento: markup sempre presente (nascosto via CSS),
+          popolato qui lato server con le immagini full-size; l'interazione
+          (apertura/chiusura/scroll-to-index/swipe-up) è in
+          ClientInteractions.js, coerente col resto del progetto. */}
+      {images && (
+        <div className="gallery-lightbox" id="galleryLightbox">
+          <button type="button" className="gallery-lightbox-close" id="galleryLightboxClose" aria-label="Chiudi">
+            ✕
+          </button>
+          <div className="gallery-lightbox-track" id="galleryLightboxTrack">
+            {images.map((img, i) => (
+              <div className="gallery-lightbox-item" key={img.full}>
+                <img src={img.full} alt={img.alt || `${item.title} — immagine ${i + 1}`} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

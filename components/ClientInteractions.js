@@ -117,6 +117,76 @@ export default function ClientInteractions() {
       item.addEventListener("click", handler);
     });
 
+    // Lightbox Gallery (pagina di dettaglio Portfolio): overlay a
+    // scorrimento orizzontale con scroll-snap. Esiste solo se ci sono
+    // immagini reali (Gallery.js renderizza il markup solo in quel caso),
+    // quindi tutto il blocco è difensivo come main-text/servizi sopra.
+    const galleryItems = document.querySelectorAll(".g-item[data-gallery-index]");
+    const lightbox = document.getElementById("galleryLightbox");
+    const lightboxTrack = document.getElementById("galleryLightboxTrack");
+    const lightboxClose = document.getElementById("galleryLightboxClose");
+    const galleryClickHandlers = [];
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    function openLightbox(index) {
+      if (!lightbox || !lightboxTrack) return;
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+      const target = lightboxTrack.children[index];
+      if (target) {
+        lightboxTrack.scrollTo({ left: target.offsetLeft, behavior: "auto" });
+      }
+    }
+    function closeLightbox() {
+      if (!lightbox) return;
+      lightbox.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    galleryItems.forEach((el) => {
+      const handler = () => openLightbox(Number(el.dataset.galleryIndex));
+      galleryClickHandlers.push(handler);
+      el.addEventListener("click", handler);
+    });
+    if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
+    const onLightboxKeydown = (e) => {
+      if (e.key === "Escape" && lightbox?.classList.contains("open")) closeLightbox();
+    };
+    window.addEventListener("keydown", onLightboxKeydown);
+    // Swipe up per chiudere, solo su mobile/touch: chiude solo se il gesto è
+    // prevalentemente verticale, così non interferisce con lo scroll
+    // orizzontale nativo usato per sfogliare le immagini.
+    const onLightboxTouchStart = (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    };
+    const onLightboxTouchEnd = (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (dy < -60 && Math.abs(dy) > Math.abs(dx)) closeLightbox();
+    };
+    if (lightbox) {
+      lightbox.addEventListener("touchstart", onLightboxTouchStart, { passive: true });
+      lightbox.addEventListener("touchend", onLightboxTouchEnd, { passive: true });
+    }
+
+    // Accordion generico (card "obiettivi diversi" + FAQ nelle pagine di
+    // servizio): stesso pattern difensivo, si disattiva da solo se la
+    // pagina corrente non ha elementi ".accordion-item".
+    const accordionItems = document.querySelectorAll(".accordion-item");
+    const accordionHandlers = [];
+    accordionItems.forEach((item) => {
+      const header = item.querySelector(".accordion-header");
+      const body = item.querySelector(".accordion-body");
+      if (!header || !body) return;
+      const handler = () => {
+        const isOpen = item.classList.toggle("open");
+        body.style.maxHeight = isOpen ? `${body.scrollHeight}px` : "0px";
+      };
+      accordionHandlers.push([header, handler]);
+      header.addEventListener("click", handler);
+    });
+
     function onScroll() {
       onHeaderScroll();
       updateReveal();
@@ -134,6 +204,14 @@ export default function ClientInteractions() {
       burgerBtn.removeEventListener("click", onBurgerClick);
       menuLinks.forEach((a) => a.removeEventListener("click", closeMobileMenu));
       serviziListItems.forEach((item, i) => item.removeEventListener("click", clickHandlers[i]));
+      galleryItems.forEach((el, i) => el.removeEventListener("click", galleryClickHandlers[i]));
+      if (lightboxClose) lightboxClose.removeEventListener("click", closeLightbox);
+      window.removeEventListener("keydown", onLightboxKeydown);
+      if (lightbox) {
+        lightbox.removeEventListener("touchstart", onLightboxTouchStart);
+        lightbox.removeEventListener("touchend", onLightboxTouchEnd);
+      }
+      accordionHandlers.forEach(([header, handler]) => header.removeEventListener("click", handler));
       io.disconnect();
     };
   }, []);
