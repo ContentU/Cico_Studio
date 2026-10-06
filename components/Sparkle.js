@@ -1,0 +1,19 @@
+// Simbolo "spark" del brand (usato in hero home, step e card nelle pagine di
+// servizio). Colore ereditato da `currentColor`.
+import { forwardRef } from "react";
+
+const Sparkle = forwardRef(function Sparkle({ className = "", ...props }, ref) {
+  return (
+    <svg ref={ref} className={className} viewBox="298 0 57 57" fill="currentColor" aria-hidden="true" {...props}>
+      <polygon points="351 43.33 346.32 46.45 340.7 39.21 339.51 37.67 334.52 31.24 341.49 26.58 351 43.33" />
+      <polygon points="328.35 35.32 336.33 37.87 329.17 55.75 323.81 54.03 328.35 35.32" />
+      <polygon points="324.29 40.88 305.85 46.42 303.85 41.16 321.31 33.04 324.15 40.5 324.29 40.88" />
+      <polygon points="318.71 26.12 314.92 32.52 314.44 33.33 298.61 22.38 301.47 17.53 318.69 26.11 318.71 26.12" />
+      <polygon points="342.03 3.87 336.28 10.89 336.14 11.06 329.82 18.77 323.73 13 323.75 12.99 337.94 0 342.03 3.87" />
+      <polygon points="354.9 18.52 354.43 24.13 345.36 24.01 337.21 23.9 335.17 23.87 335.88 15.52 354.9 18.52" />
+      <polygon points="314.19 20.93 314.19 20.9 312.89 1.71 318.46 .93 322.48 19.71 322.49 19.77 314.19 20.93" />
+    </svg>
+  );
+});
+
+export default Sparkle;

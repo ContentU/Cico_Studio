@@ -8,22 +8,15 @@ import Lavoriamo from "../components/Lavoriamo";
 import Blog from "../components/Blog";
 import Footer from "../components/Footer";
 import ClientInteractions from "../components/ClientInteractions";
-import { getAllPortfolio } from "../lib/wp";
 
-export default async function Home() {
-  const portfolioHome = (await getAllPortfolio()).slice(0, 6);
-
+export default function Home() {
   return (
     <>
-      <div className="font-note">
-        Font di brand attivi (TT Travel Next + Apfel Grotezk). Foto e testi sono
-        ancora segnaposto.
-      </div>
       <Header />
       <MobileMenu />
       <Hero />
       <MainText />
-      <Portfolio items={portfolioHome} />
+      <Portfolio />
       <Servizi />
       <Lavoriamo />
       <Blog />

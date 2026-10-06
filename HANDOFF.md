@@ -1,0 +1,74 @@
+# Consegna sviluppo — aggiornamento Next.js (ottobre 2026)
+
+Questo aggiornamento porta in Next.js tutte le anteprime HTML approvate
+(cartella `07_Output-Sito`). Il progetto compila (`npm run build` OK, 23 pagine
+statiche) e funziona anche senza WordPress raggiungibile (fallback ai dati
+segnaposto, con warning `[wp] ...` in console).
+
+## Novità
+
+| Area | Dove |
+|---|---|
+| Home v2 (hero "Hey <parola>!" rotante) | `components/Hero.js`, `components/Sparkle.js`, `app/globals.css` |
+| 6 pagine di servizio (layout Hotel v2, card sovrapposte, titolo sticky) | `app/[servizio]/page.js`, `components/service/*`, `lib/serviziContent.js`, `styles/service.css` |
+| Blog indice (pillole, ultimo articolo, infinite scroll) | `app/blog/page.js`, `components/blog/BlogIndex.js`, `styles/blog.css` |
+| Articolo | `app/blog/[slug]/page.js`, `lib/wp.js` (`getPostBySlug`, `cleanArticleHtml`, `getRelatedPosts`), `styles/article.css` |
+| Contatti + API | `app/contatti/page.js`, `components/contatti/ContactForm.js`, `app/api/contatti/route.js`, `styles/contatti.css` |
+| WhatsApp flottante | `components/WhatsAppFab.js` (montato in `app/layout.js`), numero in `lib/content.js` |
+| Footer con link alle pagine di servizio | `components/Footer.js`, `lib/content.js` (`footerLinks`) |
+| Redirect `/hotel` → `/fotografia-hotel` | `next.config.mjs` |
+
+**Rimossi:** la vecchia pagina `app/hotel` e i vecchi componenti `components/service/*` (v1),
+sostituiti dalle versioni v2. Il box "font-note" delle anteprime non c'è più.
+
+## Da sapere
+
+- **CSS per pagina**: `styles/*.css` è limitato al wrapper della pagina (`.pg-service`
+  ecc.), estratto dalle anteprime. Le osservazioni CSS generiche del cliente andranno
+  applicate lì o in `app/globals.css`.
+- **Pesi tipografici**: Typekit ha solo 400 e 700, quindi Black→700 e DemiBold→400.
+- **URL delle pagine di servizio** scelti da noi (vedi chiavi di `servizioPages`): da
+  confermare con il cliente prima della messa online.
+- **Selezione automatica dei progetti** nelle pagine di servizio: confronta il termine
+  `showcase.area` con Macroarea **o** Tipologia (es. "Hotel", "B&B", "Ville",
+  "Appartamenti", "Immobili di pregio") e `showcase.servizio` ("Fotografia"/"Video").
+  Verificare che i nomi coincidano con i termini reali in WordPress.
+- **Blog correlati nelle pagine di servizio**: Post con Macroarea uguale a `blog.category`;
+  se non ce ne sono, titoli del cliente non cliccabili.
+
+## Configurazione (variabili d'ambiente)
+
+Vedi `.env.local.example`. In produzione vanno impostate sull'hosting:
+
+- `WORDPRESS_API_URL` (opzionale, default `https://cms.cicostudio.it/wp-json/wp/v2`)
+- `CONTACT_WEBHOOK_URL` — **necessaria** perché il form Contatti consegni le richieste
+  (senza, in produzione risponde 503)
+- `BREVO_API_KEY` — non ancora usata (Brevo in sospeso). Mai nel codice né su GitHub.
+
+## Come verificare
+
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # controllo finale
+```
+
+Pagine da controllare a mano: `/`, `/fotografia-hotel`, `/video-hotel`, `/fotografia-bb`,
+`/fotografia-appartamenti-airbnb`, `/fotografia-ville`, `/fotografia-immobili-pregio`,
+`/blog`, un articolo, `/contatti`, `/portfolio`. Controllare anche in console che non
+ci siano warning `[wp] ...` (significherebbe dati segnaposto al posto di quelli reali).
+
+## Git (suggerito)
+
+```bash
+git checkout -b feature/pagine-servizio-blog-contatti
+# copiare i file di questa cartella nel repository (senza node_modules/.next/.env.local),
+# poi rimuovere i vecchi: app/hotel e components/service (versione v1)
+git add -A
+git commit -m "Home v2, pagine di servizio, blog, articolo, contatti, WhatsApp"
+git push -u origin feature/pagine-servizio-blog-contatti
+```
+
+## Aperti
+
+Vedi "Cosa manca ancora" in `README.md`.

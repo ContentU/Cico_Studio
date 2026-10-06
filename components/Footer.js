@@ -2,18 +2,28 @@ import Link from "next/link";
 import BrandMark from "./Logo";
 import { footerLinks } from "../lib/content";
 
-export default function Footer() {
+// Footer condiviso da tutte le pagine.
+// - `claim`: contenuto del titolo (default: claim della home)
+// - `newsletter`: mostra il campo email (oggi solo segnaposto, in attesa
+//   dell'integrazione Brevo)
+// - `slim`: nelle pagine di servizio/blog/contatti mostra solo l'email
+//   (niente telefono/indirizzo/social segnaposto)
+export default function Footer({ claim, newsletter = true, slim = false }) {
   return (
     <footer id="contatti">
       <div className="footer-top">
         <h2 className="footer-claim">
-          Pronti a raccontare
-          <br />
-          il <span className="hl">vostro spazio</span>?
+          {claim || (
+            <>
+              Pronti a raccontare
+              <br />
+              il <span className="hl">vostro spazio</span>?
+            </>
+          )}
         </h2>
-        <a href={`mailto:${footerLinks.contatti.email}`} className="btn-primary on-dark">
+        <Link href="/contatti" className="btn-primary on-dark">
           Inizia il progetto <span className="arrow">→</span>
-        </a>
+        </Link>
       </div>
       <div className="footer-grid">
         <div>
@@ -23,44 +33,50 @@ export default function Footer() {
           <p className="footer-tagline">
             Centro Immagine e Comunicazione per l&apos;Ospitalità. Palermo, Sicilia.
           </p>
-          <div className="newsletter-form">
-            <input type="email" placeholder="La tua email" />
-            <a href="#" className="btn-secondary on-dark" style={{ padding: "10px 16px" }}>
-              Iscriviti
-            </a>
-          </div>
+          {newsletter && (
+            <div className="newsletter-form">
+              <input type="email" placeholder="La tua email" aria-label="La tua email" />
+              <a href="#" className="btn-secondary on-dark" style={{ padding: "10px 16px" }}>
+                Iscriviti
+              </a>
+            </div>
+          )}
         </div>
         <div className="footer-col">
           <h5>Servizi</h5>
           {footerLinks.servizi.map((l) => (
-            <Link href={l.href} key={l.label}>
+            <Link href={l.href} key={l.href}>
               {l.label}
             </Link>
           ))}
         </div>
         <div className="footer-col">
-          <h5>Sotto-servizi</h5>
-          {footerLinks.sottoServizi.map((l) => (
-            <a href={l.href} key={l.label}>
+          <h5>Esplora</h5>
+          {footerLinks.esplora.map((l) => (
+            <Link href={l.href} key={l.href}>
               {l.label}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="footer-col">
           <h5>Contatti</h5>
           <a href={`mailto:${footerLinks.contatti.email}`}>{footerLinks.contatti.email}</a>
-          <a href={`tel:${footerLinks.contatti.telefono.replace(/\s/g, "")}`}>
-            {footerLinks.contatti.telefono}
-          </a>
-          <a href="#">{footerLinks.contatti.indirizzo}</a>
-          <div className="socials" style={{ marginTop: "14px" }}>
-            <a href="#" aria-label="Instagram">
-              IG
-            </a>
-            <a href="#" aria-label="LinkedIn">
-              in
-            </a>
-          </div>
+          {!slim && (
+            <>
+              <a href={`tel:${footerLinks.contatti.telefono.replace(/\s/g, "")}`}>
+                {footerLinks.contatti.telefono}
+              </a>
+              <a href="#">{footerLinks.contatti.indirizzo}</a>
+              <div className="socials" style={{ marginTop: "14px" }}>
+                <a href="#" aria-label="Instagram">
+                  IG
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                  in
+                </a>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div className="footer-bottom">

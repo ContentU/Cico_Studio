@@ -46,10 +46,6 @@ export default async function PortfolioDetailPage({ params }) {
 
   return (
     <>
-      <div className="font-note">
-        Pagina di dettaglio Portfolio — contenuti da WordPress ({item.slug}),
-        con fallback automatico ai dati segnaposto se il CMS non risponde.
-      </div>
       <Header />
       <MobileMenu />
       <ProjectHero item={item} />

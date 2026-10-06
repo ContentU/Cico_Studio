@@ -1,7 +1,11 @@
 import Link from "next/link";
-import { brandColors } from "../lib/content";
+import { getAllPortfolio } from "../lib/wp";
+import { coverProps } from "../lib/media";
 
-export default function Portfolio({ items }) {
+// Ultimi progetti dal CMS (WordPress): copertina = Featured Image del
+// progetto, categoria = Macroarea, tag = Servizi realizzati.
+export default async function Portfolio() {
+  const items = (await getAllPortfolio()).slice(0, 6);
   return (
     <section className="portfolio" id="portfolio">
       <div className="section-head">
@@ -15,29 +19,25 @@ export default function Portfolio({ items }) {
         </p>
       </div>
       <div className="portfolio-grid" id="portfolioGrid">
-        {items.map((item, i) => (
-          <Link href={`/portfolio/${item.slug}`} className="p-card" key={item.slug}>
-            <div
-              className="p-media"
-              style={{
-                background: `linear-gradient(135deg, ${brandColors[i % 4]}33, ${
-                  brandColors[(i + 1) % 4]
-                }66)`,
-              }}
-            />
-            <div className="p-body">
-              <h3>{item.title}</h3>
-              <div className="tags">
-                {item.macroarea && <span className="tag cat">{item.macroarea}</span>}
-                {(item.tags || []).slice(0, 3).map((t) => (
-                  <span className="tag" key={t}>
-                    {t}
-                  </span>
-                ))}
+        {items.map((item, i) => {
+          const cover = coverProps(item.heroImage, i);
+          return (
+            <Link href={`/portfolio/${item.slug}`} className="p-card" key={item.slug}>
+              <div className={`p-media ${cover.className}`} style={cover.style} />
+              <div className="p-body">
+                <h3>{item.title}</h3>
+                <div className="tags">
+                  {item.macroarea && <span className="tag cat">{item.macroarea}</span>}
+                  {(item.serviziRealizzati || []).slice(0, 3).map((t) => (
+                    <span className="tag" key={t}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
       <div className="portfolio-cta">
         <Link href="/portfolio" className="btn-secondary">

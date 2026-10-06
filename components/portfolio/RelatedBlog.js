@@ -1,4 +1,4 @@
-import { brandColors } from "../../lib/content";
+import { coverProps } from "../../lib/media";
 
 // Riusa lo stile ".blog"/".b-card" della home, con un modificatore ".related"
 // per la variante a 2 colonne (la home ne ha 3, qui il layout ne prevede 2).
@@ -16,14 +16,7 @@ export default function RelatedBlog({ items }) {
         <div className="blog-grid related">
           {items.map((post, i) => (
             <div className="b-card" key={post.slug || post.title}>
-              <div
-                className="b-media"
-                style={{
-                  background: `linear-gradient(135deg, ${brandColors[i % 4]}22, ${
-                    brandColors[(i + 2) % 4]
-                  }55)`,
-                }}
-              />
+              <div className={`b-media ${coverProps(post.image, i, ["22", "55"], 2).className}`} style={coverProps(post.image, i, ["22", "55"], 2).style} />
               <div className="b-meta">{post.cat}</div>
               <h3>{post.title}</h3>
               <p>{post.excerpt}</p>

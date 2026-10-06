@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { brandColors } from "../../lib/content";
+import { coverProps } from "../../lib/media";
 
-// Showcase progetti correlati, auto-selezionati per Macroarea+Servizio
-// (vedi getPortfolioByFilter in lib/wp.js). Graficamente distinta dal grid
-// standard .portfolio-grid: scroll orizzontale, non paginata, pensata per
-// scorrere rapidamente una selezione più ampia di lavori dello stesso tipo.
-export default function Showcase({ label, title, intro, items, ctaHref, ctaLabel }) {
+// Progetti correlati (scroll orizzontale). Selezione automatica da WordPress
+// per area (Macroarea o Tipologia) + servizio: vedi getPortfolioByFilter in
+// lib/wp.js. Se non ci sono progetti corrispondenti la sezione non compare.
+export default function Showcase({ label, title, intro, items }) {
   if (!items.length) return null;
   return (
     <section className="showcase-section">
@@ -16,28 +15,22 @@ export default function Showcase({ label, title, intro, items, ctaHref, ctaLabel
         </div>
         {intro && <p>{intro}</p>}
       </div>
-      <div className="showcase-scroll">
-        {items.map((item, i) => (
-          <Link href={`/portfolio/${item.slug}`} className="showcase-card" key={item.slug}>
-            <div
-              className="showcase-media"
-              style={{
-                background: `linear-gradient(135deg, ${brandColors[i % 4]}33, ${
-                  brandColors[(i + 1) % 4]
-                }66)`,
-              }}
-            />
-            <h3>{item.title}</h3>
-          </Link>
-        ))}
+      <div className="showcase-scroll" id="showcaseScroll">
+        {items.map((item, i) => {
+          const cover = coverProps(item.heroImage, i);
+          return (
+            <Link href={`/portfolio/${item.slug}`} className="showcase-card" key={item.slug}>
+              <div className={`showcase-media ${cover.className}`} style={cover.style} />
+              <h3>{item.title}</h3>
+            </Link>
+          );
+        })}
       </div>
-      {ctaHref && (
-        <div style={{ textAlign: "center", marginTop: "40px" }}>
-          <Link href={ctaHref} className="btn-tertiary">
-            {ctaLabel || "Scopri tutti i progetti"} <span className="arrow">→</span>
-          </Link>
-        </div>
-      )}
+      <div style={{ textAlign: "center", marginTop: 40 }}>
+        <Link href="/portfolio" className="btn-tertiary">
+          Scopri tutti i progetti <span className="arrow">→</span>
+        </Link>
+      </div>
     </section>
   );
 }

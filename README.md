@@ -19,34 +19,40 @@ grazie ai dati segnaposto).
 
 ## Cosa c'è dentro
 
-- `app/page.js` — Home (App Router)
-- `app/portfolio/page.js` — pagina indice Portfolio: tutti i progetti, con
-  filtro per Tipologia/Servizio/Tag (`components/portfolio/PortfolioFilterGrid.js`)
-- `app/portfolio/[slug]/page.js` — pagina di dettaglio Portfolio, dinamica
-  per slug
-- `app/hotel/page.js` — pagina di servizio "Hotel", prima delle pagine
-  Hotel/Host/B&B (stessa struttura, testi diversi — vedi sotto)
-- `components/` — un componente per ogni sezione della Home (Header, Hero,
-  Portfolio, Servizi, Come lavoriamo, Blog, Footer) più
-  `ClientInteractions.js`, che contiene tutta la logica di scroll/animazione
-  portata dal prototipo (riusata anche nelle pagine interne: si disattiva da
-  sola per gli elementi che non trova, es. il testo scroll-reveal della Home)
-- `components/portfolio/` — componenti specifici della pagina di dettaglio
-  Portfolio (Hero, Titolo+breadcrumb, Scheda tecnica, Gallery con lightbox,
-  Video hero, Portfolio correlati, Blog correlati)
-- `components/service/` — componenti riusabili delle pagine di servizio
-  (ServiceHero, Accordion, StepsSection, Showcase, WhySection, BlogSection,
-  ServiceCTA) — pensati per essere riusati identici da /host e /bb
-- `lib/content.js` — testi e dati della Home (portfolio, blog, servizi)
-- `lib/serviziContent.js` — testi delle pagine di servizio (oggi solo
-  `hotelPage`, presi dal documento del cliente; stessa forma prevista per
-  `hostPage`/`bbPage` quando arriveranno i rispettivi testi)
-- `lib/wp.js` — livello di accesso a WordPress headless per il Portfolio
-  (vedi sotto)
-- `lib/mockPortfolio.js` — dati segnaposto nella stessa forma dei dati reali,
-  usati per sviluppare senza WordPress e come fallback se il CMS non risponde
-- `public/fonts/` — Apfel Grotezk in locale; TT Travel Next arriva dal link
-  Typekit già inserito in `app/layout.js`
+Rotte (App Router):
+
+- `/` — Home v2 (hero "Hey <parola>!" con parola rotante, Portfolio e Blog da WordPress)
+- `/portfolio`, `/portfolio/[slug]` — indice con filtri e dettaglio progetto
+- `/fotografia-hotel`, `/video-hotel`, `/fotografia-bb`,
+  `/fotografia-appartamenti-airbnb`, `/fotografia-ville`,
+  `/fotografia-immobili-pregio` — 6 pagine di servizio, **una sola rotta**
+  `app/[servizio]/page.js` + testi in `lib/serviziContent.js`
+  (`/hotel` fa redirect 301 a `/fotografia-hotel`, vedi `next.config.mjs`)
+- `/blog` — indice: pillole per categoria, ultimo articolo in evidenza,
+  griglia a 3 colonne con infinite scroll
+- `/blog/[slug]` — articolo (corpo WordPress ripulito lato server), correlati per tag/categoria
+- `/contatti` — form di primo contatto → `POST /api/contatti`
+- Pulsante WhatsApp flottante su tutte le pagine (`components/WhatsAppFab.js`,
+  numero in `lib/content.js` → `siteConfig`)
+
+Struttura:
+
+- `components/` — sezioni della Home, Header/MobileMenu/Footer condivisi,
+  `ClientInteractions.js` (scroll, menu mobile, lightbox: vale per tutte le pagine)
+- `components/service/` — componenti delle pagine di servizio
+  (ServiceHero, BandSection, StepsSection, Showcase, WhyStack, FaqSection,
+  BlogSection, `ServiceInteractions.js` per accordion e card sovrapposte)
+- `components/blog/BlogIndex.js`, `components/contatti/ContactForm.js`,
+  `components/portfolio/*`
+- `lib/wp.js` — accesso a WordPress (Portfolio e Blog) con fallback ai dati
+  segnaposto; `lib/content.js` (nav, footer, WhatsApp, dati home);
+  `lib/serviziContent.js` (testi pagine di servizio); `lib/format.js`;
+  `lib/media.js`; `lib/mockPortfolio.js`
+- `styles/*.css` — CSS **per pagina**, estratto dalle anteprime HTML approvate
+  e limitato al wrapper della pagina (`.pg-service`, `.pg-blog`, `.pg-article`,
+  `.pg-contatti`), così non interferisce con le altre pagine.
+  `app/globals.css` contiene base, home, portfolio e WhatsApp.
+- `public/fonts/` — Apfel Grotezk in locale; TT Travels Next da Typekit (`app/layout.js`)
 
 ## Collegamento a WordPress headless (Portfolio)
 
@@ -137,38 +143,60 @@ client-side perché tutti i progetti sono già caricati lato server: se il
 catalogo crescesse molto si può passare a un filtro via query param sulle
 tassonomie, già supportato dall'API (vedi `getRelatedPortfolio`).
 
-## Pagina Hotel (/hotel) e le prossime pagine di servizio
+## Pagine di servizio
 
-Prima pagina costruita a partire dal prototipo statico approvato
-(`07_Output-Sito/servizio-hotel.html`) e dai testi reali del cliente
-(documento "Fotografia per hotel CICO.docx"). Struttura: hero editoriale,
-intro, 2 card ad accordion ("Fotografia per OTA" / "Fotografia di brand"),
-sezione a due colonne con i 4 step del processo, showcase progetti
-correlati (auto-selezionati per Macroarea+Servizio, vedi
-`getPortfolioByFilter` in `lib/wp.js`), 3 blocchi "Esperienza specifica",
-FAQ (10 domande, stesso Accordion), Blog correlati (auto-selezionato per
-categoria, vedi `getBlogByCategory` — oggi con fallback ai dati segnaposto
-di `lib/content.js`, query reale da collegare quando sarà noto il CPT del
-Blog), CTA finale + footer condiviso.
+Le 6 pagine usano lo stesso layout (Hotel v2 da Figma). Per modificare un testo
+o aggiungere una pagina si interviene solo su `lib/serviziContent.js` (le chiavi
+dell'oggetto `servizioPages` sono gli URL). Il campo `showcase` (`area` +
+`servizio`) filtra i progetti Portfolio da WordPress: `area` viene confrontata,
+senza maiuscole, con la **Macroarea o la Tipologia** del progetto; `blog.category`
+è la **Macroarea** dei Post da mostrare. Se in WordPress non ci sono corrispondenze
+la sezione progetti non compare, mentre "Approfondimenti dal Blog" mostra i titoli
+indicati dal cliente (non cliccabili).
 
-Tutti i componenti (`components/service/`) sono generici e riusano solo i
-dati passati via props: le pagine Host e B&B, quando arriveranno i
-rispettivi testi, si costruiscono allo stesso modo aggiungendo un nuovo
-oggetto in `lib/serviziContent.js` + una nuova `app/<slug>/page.js` che
-richiama gli stessi componenti — senza toccare CSS o componenti esistenti.
+Link provvisori nel footer; il menu di navigazione (`navLinks` in `lib/content.js`)
+sarà rivisto con il cliente.
+
+## Blog, articolo e Contatti
+
+- **Blog**: i Post nativi di WordPress. L'infinite scroll lavora sui dati già
+  caricati (fino a 100 articoli, `getAllPosts`): oltre quella soglia passare alla
+  paginazione REST.
+- **Articolo**: `cleanArticleHtml` in `lib/wp.js` rimuove paragrafi vuoti e
+  segnaposto CTA tra parentesi quadre (es. "[VALUTIAMO IL PERIODO GIUSTO]"), non
+  ripete l'immagine in evidenza se è la prima del testo e riscrive i link interni
+  al CMS sul dominio del sito. Resto del corpo invariato.
+- **Contatti**: `app/api/contatti/route.js` valida, scarta i bot (honeypot) e
+  consegna a `CONTACT_WEBHOOK_URL` (da configurare; vedi `.env.local.example`).
+  In produzione senza webhook risponde 503. Metodo di consegna da decidere con il
+  cliente (email, WordPress, CRM).
+
+## Home, Blog e immagini di copertina
+
+Portfolio e Blog della home leggono da WordPress (non più da dati statici):
+- **Portfolio**: copertina = Featured Image del progetto, categoria = Macroarea,
+  tag = Servizi realizzati (`getAllPortfolio`).
+- **Blog**: gli articoli sono i **Post nativi** di WordPress (`/wp/v2/posts`);
+  copertina = Featured Image dell'articolo, categoria = Macroarea
+  (`getLatestPosts`, `getBlogByCategory`, `normalizePost` in `lib/wp.js`).
+  Un articolo senza Featured Image mostra il gradiente segnaposto.
+- Helper condiviso per le copertine: `lib/media.js` (`coverProps`).
+- Le pagine sono statiche con revalidate di 1 ora: dopo aver caricato nuove
+  immagini possono servire fino a un'ora (o un nuovo deploy) per comparire.
+
+**Tipografia**: il kit Typekit di TT Travels Next contiene solo Regular e Bold.
+Nel CSS si usa quindi 700 al posto del Black del Figma e 400 al posto del
+DemiBold. Se in futuro il kit includerà quei pesi, basta rimettere 900/600.
 
 ## Cosa manca ancora
 
-- Testi e foto definitivi al posto dei segnaposto (Portfolio) e foto reali
-  nella pagina Hotel
-- Video verticali 9:16 (3x) nella sezione Video, quando richiesti
-- Rinomina tassonomica "Architettura" → "B&B" (segnalata dal cliente, da
-  chiarire se riguarda la Macroarea o la Tipologia prima di intervenire)
-- Pagine Host, B&B e singolo articolo Blog — oggi esistono Home, indice
-  Portfolio, dettaglio Portfolio e la pagina Hotel
-- Query automatica reale "Blog correlati"/"Approfondimenti dal Blog" per
-  tag o categoria in comune (vedi TODO `getRelatedBlog`/`getBlogByCategory`
-  in `lib/wp.js`) — oggi entrambe ricadono sui dati segnaposto perché il
-  CPT/rest_base del Blog headless non è ancora noto
-- Deploy (tipicamente Vercel/Netlify per il frontend, hosting separato per
-  WordPress)
+- Foto e testi definitivi (hero, ritratti, card: oggi segnaposto "foto in arrivo")
+- Brevo (newsletter): non integrato, il campo nel footer è solo segnaposto
+- Consegna del form Contatti (`CONTACT_WEBHOOK_URL`)
+- Numero di telefono e indirizzo definitivi nel footer e in /contatti (`lib/content.js`)
+- Informativa privacy e Termini (link oggi segnaposto)
+- Rinomina "Architettura" → "B&B" in WordPress da chiarire (Macroarea o Tipologia?)
+- Revisione del menu di navigazione con il cliente
+- Pagina "Approfondisci come lavoriamo" (link nello step Hotel, oggi punta a /blog)
+- Articoli del blog indicati nei testi del cliente da scrivere/pubblicare
+- Deploy (Vercel/Netlify per il frontend, hosting separato per WordPress)

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { brandColors } from "../../lib/content";
+import { coverProps } from "../../lib/media";
 
 // Filtro client-side su Tipologia/Servizio/Tag: i progetti sono già tutti
 // caricati (arrivano dal Server Component della pagina indice), quindi
@@ -82,14 +82,7 @@ export default function PortfolioFilterGrid({ items, tipologie, servizi, tags })
         <div className="portfolio-grid related">
           {filtered.map((item, i) => (
             <Link href={`/portfolio/${item.slug}`} className="p-card in-view" key={item.slug}>
-              <div
-                className="p-media"
-                style={{
-                  background: `linear-gradient(135deg, ${brandColors[i % 4]}33, ${
-                    brandColors[(i + 1) % 4]
-                  }66)`,
-                }}
-              />
+              <div className={`p-media ${coverProps(item.heroImage, i).className}`} style={coverProps(item.heroImage, i).style} />
               <div className="p-body">
                 <h3>{item.title}</h3>
                 <div className="tags">

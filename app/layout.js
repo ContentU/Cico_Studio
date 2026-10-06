@@ -1,4 +1,5 @@
 import "./globals.css";
+import WhatsAppFab from "../components/WhatsAppFab";
 
 export const metadata = {
   title: "CICO — Centro Immagine e Comunicazione per l'Ospitalità",
@@ -12,7 +13,10 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/oep4mbq.css" />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <WhatsAppFab />
+      </body>
     </html>
   );
 }
