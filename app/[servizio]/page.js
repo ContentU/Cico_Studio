@@ -12,6 +12,7 @@ import FaqSection from "../../components/service/FaqSection";
 import BlogSection from "../../components/service/BlogSection";
 import ServiceInteractions from "../../components/service/ServiceInteractions";
 import { servizioPages, servizioSlugs } from "../../lib/serviziContent";
+import { serviziImages } from "../../lib/serviziImages";
 import { getPortfolioByFilter, getBlogByCategory } from "../../lib/wp";
 import "../../styles/service.css";
 
@@ -35,6 +36,7 @@ export function generateMetadata({ params }) {
 export default async function ServicePage({ params }) {
   const page = servizioPages[params.servizio];
   if (!page) notFound();
+  const images = serviziImages[params.servizio];
 
   const [projects, posts] = await Promise.all([
     getPortfolioByFilter({ area: page.showcase.area, servizio: page.showcase.servizio }, 6),
@@ -46,8 +48,8 @@ export default async function ServicePage({ params }) {
       <Header />
       <MobileMenu />
       <main>
-        <ServiceHero hero={page.hero} />
-        <BandSection eyebrow={page.ctaLabel} band={page.band} />
+        <ServiceHero hero={page.hero} images={images} />
+        <BandSection eyebrow={page.ctaLabel} band={page.band} images={images.rows} />
         <StepsSection title={page.steps.title} items={page.steps.items} />
         {page.stepsExtra && (
           <StepsSection
@@ -63,7 +65,7 @@ export default async function ServicePage({ params }) {
           intro={page.showcase.intro}
           items={projects}
         />
-        <WhyStack why={page.why} />
+        <WhyStack why={page.why} images={images.cards} />
         <FaqSection faq={page.faq} />
       </main>
       <BlogSection posts={posts} fallback={page.blog.fallback} category={page.blog.category} />

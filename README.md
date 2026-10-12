@@ -204,7 +204,7 @@ DemiBold. Se in futuro il kit includerà quei pesi, basta rimettere 900/600.
 
 ## Cosa manca ancora
 
-- Foto e testi definitivi (hero, ritratti, card: oggi segnaposto "foto in arrivo")
+- Foto definitive: le pagine di servizio hanno le foto fornite (`public/images/servizi/`, mappa in `lib/serviziImages.js`); restano segnaposto le altre pagine (home, ecc.)
 - Brevo: integrazione pronta ma da attivare con `BREVO_API_KEY` e `BREVO_LIST_ID` (vedi sezione Newsletter)
 - Consegna del form Contatti (`CONTACT_WEBHOOK_URL`)
 - Numero di telefono e indirizzo definitivi nel footer e in /contatti (`lib/content.js`)

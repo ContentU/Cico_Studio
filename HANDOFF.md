@@ -17,6 +17,7 @@ segnaposto, con warning `[wp] ...` in console).
 | WhatsApp flottante | `components/WhatsAppFab.js` (montato in `app/layout.js`), numero in `lib/content.js` |
 | Footer con link alle pagine di servizio | `components/Footer.js`, `lib/content.js` (`footerLinks`) |
 | Newsletter Brevo (footer di tutte le pagine) | `components/NewsletterForm.js`, `app/api/newsletter/route.js` |
+| Foto e video delle pagine di servizio | `public/images/servizi/`, `lib/serviziImages.js`, `components/service/Media.js` |
 | Redirect `/hotel` → `/fotografia-hotel` | `next.config.mjs` |
 
 **Rimossi:** la vecchia pagina `app/hotel` e i vecchi componenti `components/service/*` (v1),

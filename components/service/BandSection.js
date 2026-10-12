@@ -1,9 +1,10 @@
 import { Lines } from "./lines";
 import PlusIcon from "./PlusIcon";
+import Media from "./Media";
 
 // Fascia gialla: eyebrow (CTA), titolo, lead e accordion (chiusi di default;
 // il comportamento è in ServiceInteractions.js).
-export default function BandSection({ eyebrow, band }) {
+export default function BandSection({ eyebrow, band, images }) {
   return (
     <section className="band">
       <div className="wrap">
@@ -13,7 +14,7 @@ export default function BandSection({ eyebrow, band }) {
         </h2>
         <p className="lead">{band.lead}</p>
         <div className="rows">
-          {band.rows.map((row) => (
+          {band.rows.map((row, ri) => (
             <div className="row" key={row.title}>
               <button className="row-head" type="button" aria-expanded="false">
                 <h3>{row.title}</h3>
@@ -34,7 +35,7 @@ export default function BandSection({ eyebrow, band }) {
                       )
                     )}
                   </div>
-                  <div className="row-media ph"></div>
+                  <Media media={images[ri]} className="row-media" />
                 </div>
               </div>
             </div>
