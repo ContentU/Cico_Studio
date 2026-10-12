@@ -11,7 +11,7 @@ export default function MobileMenu() {
           {link.label}
         </Link>
       ))}
-      <Link href="/#contatti" className="btn-primary">
+      <Link href="/contatti" className="btn-primary">
         Iniziamo un progetto <span className="arrow">→</span>
       </Link>
     </div>

@@ -1,14 +1,14 @@
 import Link from "next/link";
 import BrandMark from "./Logo";
+import NewsletterForm from "./NewsletterForm";
 import { footerLinks } from "../lib/content";
 
 // Footer condiviso da tutte le pagine.
 // - `claim`: contenuto del titolo (default: claim della home)
-// - `newsletter`: mostra il campo email (oggi solo segnaposto, in attesa
-//   dell'integrazione Brevo)
+// - il modulo newsletter (Brevo) è presente in tutte le pagine
 // - `slim`: nelle pagine di servizio/blog/contatti mostra solo l'email
 //   (niente telefono/indirizzo/social segnaposto)
-export default function Footer({ claim, newsletter = true, slim = false }) {
+export default function Footer({ claim, slim = false }) {
   return (
     <footer id="contatti">
       <div className="footer-top">
@@ -33,14 +33,7 @@ export default function Footer({ claim, newsletter = true, slim = false }) {
           <p className="footer-tagline">
             Centro Immagine e Comunicazione per l&apos;Ospitalità. Palermo, Sicilia.
           </p>
-          {newsletter && (
-            <div className="newsletter-form">
-              <input type="email" placeholder="La tua email" aria-label="La tua email" />
-              <a href="#" className="btn-secondary on-dark" style={{ padding: "10px 16px" }}>
-                Iscriviti
-              </a>
-            </div>
-          )}
+          <NewsletterForm />
         </div>
         <div className="footer-col">
           <h5>Servizi</h5>

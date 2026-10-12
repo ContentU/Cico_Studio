@@ -147,12 +147,16 @@ tassonomie, già supportato dall'API (vedi `getRelatedPortfolio`).
 
 Le 6 pagine usano lo stesso layout (Hotel v2 da Figma). Per modificare un testo
 o aggiungere una pagina si interviene solo su `lib/serviziContent.js` (le chiavi
-dell'oggetto `servizioPages` sono gli URL). Il campo `showcase` (`area` +
-`servizio`) filtra i progetti Portfolio da WordPress: `area` viene confrontata,
-senza maiuscole, con la **Macroarea o la Tipologia** del progetto; `blog.category`
-è la **Macroarea** dei Post da mostrare. Se in WordPress non ci sono corrispondenze
-la sezione progetti non compare, mentre "Approfondimenti dal Blog" mostra i titoli
-indicati dal cliente (non cliccabili).
+dell'oggetto `servizioPages` sono gli URL). Il campo `showcase` (`area` + `servizio`, entrambi elenchi di alias) sceglie in automatico
+i progetti Portfolio da WordPress: `area` è confrontata (senza maiuscole/accenti) con la
+**Macroarea**, il **termine Tipologia** o la Tipologia testuale del progetto; `servizio` con
+i **Servizi realizzati**. Nomi reali oggi in WP: Macroarea Hotel/Host/B&B; Tipologia
+Appartamento/Villa/Hotel/Boutique Hotel/B&B/Residence; Servizio Foto/Video/Sito Web.
+Se in WordPress non ci sono corrispondenze la sezione progetti non compare. **Manca in WP
+il termine "Immobili di pregio"** (pagina `/fotografia-immobili-pregio`): va creato (Tipologia)
+e assegnato ai progetti, altrimenti quella sezione resta vuota. `blog.category` è la
+**Macroarea** dei Post da mostrare; se non ce ne sono, "Approfondimenti dal Blog" mostra i
+titoli indicati dal cliente (non cliccabili).
 
 Link provvisori nel footer; il menu di navigazione (`navLinks` in `lib/content.js`)
 sarà rivisto con il cliente.
@@ -170,6 +174,16 @@ sarà rivisto con il cliente.
   consegna a `CONTACT_WEBHOOK_URL` (da configurare; vedi `.env.local.example`).
   In produzione senza webhook risponde 503. Metodo di consegna da decidere con il
   cliente (email, WordPress, CRM).
+
+## Newsletter (Brevo)
+
+Modulo nel footer di tutte le pagine (`components/NewsletterForm.js`): solo email, consenso
+privacy obbligatorio, honeypot anti-bot. Invia a `POST /api/newsletter`
+(`app/api/newsletter/route.js`), che iscrive il contatto alla lista Brevo con
+`POST https://api.brevo.com/v3/contacts` (iscrizione diretta, senza double opt-in; se il
+contatto esiste viene aggiornato). Variabili d'ambiente: `BREVO_API_KEY` e `BREVO_LIST_ID`
+(ID numerico della lista). In sviluppo senza chiave logga e risponde ok; in produzione senza
+chiave risponde 503. Il link "Informativa privacy" è ancora un segnaposto.
 
 ## Home, Blog e immagini di copertina
 
@@ -191,7 +205,7 @@ DemiBold. Se in futuro il kit includerà quei pesi, basta rimettere 900/600.
 ## Cosa manca ancora
 
 - Foto e testi definitivi (hero, ritratti, card: oggi segnaposto "foto in arrivo")
-- Brevo (newsletter): non integrato, il campo nel footer è solo segnaposto
+- Brevo: integrazione pronta ma da attivare con `BREVO_API_KEY` e `BREVO_LIST_ID` (vedi sezione Newsletter)
 - Consegna del form Contatti (`CONTACT_WEBHOOK_URL`)
 - Numero di telefono e indirizzo definitivi nel footer e in /contatti (`lib/content.js`)
 - Informativa privacy e Termini (link oggi segnaposto)

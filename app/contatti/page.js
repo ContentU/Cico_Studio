@@ -80,7 +80,6 @@ export default function ContattiPage() {
         </div>
       </main>
       <Footer
-        newsletter={false}
         slim
         claim={
           <>

@@ -29,7 +29,6 @@ export default async function BlogPage() {
         </div>
       </main>
       <Footer
-        newsletter={false}
         slim
         claim={
           <>

@@ -28,7 +28,7 @@ export default function Header() {
           <span></span>
           <span></span>
         </button>
-        <Link href="/#contatti" className="btn-primary">
+        <Link href="/contatti" className="btn-primary">
           Iniziamo un progetto <span className="arrow">→</span>
         </Link>
       </div>

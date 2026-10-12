@@ -16,6 +16,7 @@ segnaposto, con warning `[wp] ...` in console).
 | Contatti + API | `app/contatti/page.js`, `components/contatti/ContactForm.js`, `app/api/contatti/route.js`, `styles/contatti.css` |
 | WhatsApp flottante | `components/WhatsAppFab.js` (montato in `app/layout.js`), numero in `lib/content.js` |
 | Footer con link alle pagine di servizio | `components/Footer.js`, `lib/content.js` (`footerLinks`) |
+| Newsletter Brevo (footer di tutte le pagine) | `components/NewsletterForm.js`, `app/api/newsletter/route.js` |
 | Redirect `/hotel` → `/fotografia-hotel` | `next.config.mjs` |
 
 **Rimossi:** la vecchia pagina `app/hotel` e i vecchi componenti `components/service/*` (v1),
@@ -29,10 +30,10 @@ sostituiti dalle versioni v2. Il box "font-note" delle anteprime non c'è più.
 - **Pesi tipografici**: Typekit ha solo 400 e 700, quindi Black→700 e DemiBold→400.
 - **URL delle pagine di servizio** scelti da noi (vedi chiavi di `servizioPages`): da
   confermare con il cliente prima della messa online.
-- **Selezione automatica dei progetti** nelle pagine di servizio: confronta il termine
-  `showcase.area` con Macroarea **o** Tipologia (es. "Hotel", "B&B", "Ville",
-  "Appartamenti", "Immobili di pregio") e `showcase.servizio` ("Fotografia"/"Video").
-  Verificare che i nomi coincidano con i termini reali in WordPress.
+- **Selezione automatica dei progetti** nelle pagine di servizio: vedi `showcase` in
+  `lib/serviziContent.js` (alias di Macroarea/Tipologia + Servizio). Verificato sui termini
+  reali di cms.cicostudio.it (Servizio "Foto", Tipologia "Appartamento"/"Villa"). Manca in WP
+  il termine **"Immobili di pregio"**: crearlo e assegnarlo ai progetti.
 - **Blog correlati nelle pagine di servizio**: Post con Macroarea uguale a `blog.category`;
   se non ce ne sono, titoli del cliente non cliccabili.
 
@@ -43,7 +44,7 @@ Vedi `.env.local.example`. In produzione vanno impostate sull'hosting:
 - `WORDPRESS_API_URL` (opzionale, default `https://cms.cicostudio.it/wp-json/wp/v2`)
 - `CONTACT_WEBHOOK_URL` — **necessaria** perché il form Contatti consegni le richieste
   (senza, in produzione risponde 503)
-- `BREVO_API_KEY` — non ancora usata (Brevo in sospeso). Mai nel codice né su GitHub.
+- `BREVO_API_KEY` e `BREVO_LIST_ID` — newsletter nel footer (`/api/newsletter`). Chiave mai nel codice né su GitHub; senza queste variabili in produzione il modulo mostra un errore.
 
 ## Come verificare
 

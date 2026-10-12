@@ -71,7 +71,6 @@ export default async function ServicePage({ params }) {
         <p>{page.cta.text}</p>
       </div>
       <Footer
-        newsletter={false}
         slim
         claim={
           <>

@@ -118,7 +118,6 @@ export default async function ArticlePage({ params }) {
         </div>
       </main>
       <Footer
-        newsletter={false}
         slim
         claim={
           <>
