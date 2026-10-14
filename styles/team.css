@@ -1,0 +1,38 @@
+/* Pagina Team (da anteprima team.html) — scoped su .pg-team */
+/* ---------- TEAM ---------- */
+.pg-team .team-page{ padding:150px 5vw 40px; max-width:1280px; margin:0 auto; }
+.pg-team .team-hero{ text-align:left; margin-bottom:64px; }
+.pg-team .team-hero .eyebrow{ font-size:13px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); }
+.pg-team .team-hero h1{ font-family:var(--font-head); font-weight:700; font-size:70px; line-height:1.02; color:var(--violet); margin-top:14px; }
+.pg-team .team-page .hl{ color:var(--watermelon); }
+.pg-team .members{ display:flex; flex-direction:column; gap:96px; }
+.pg-team .member{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:64px; align-items:center; }
+.pg-team .member.rev .member-photo{ order:2; }
+.pg-team .member-photo{ border-radius:24px; overflow:hidden; background:var(--panel-bg); aspect-ratio:4/5; }
+.pg-team .member-photo img{ width:100%; height:100%; object-fit:cover; }
+.pg-team .member-role{ font-size:13px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); }
+.pg-team .member-body h3{ font-family:var(--font-head); font-weight:700; font-size:50px; line-height:1.05; color:var(--violet); margin:10px 0 22px; }
+.pg-team .member-body p{ font-size:17px; line-height:1.65; color:var(--muted); margin-bottom:14px; max-width:56ch; }
+.pg-team .network{ margin-top:140px; }
+.pg-team .network h2,.pg-team .clients h2{ font-family:var(--font-head); font-weight:700; font-size:50px; line-height:1.05; color:var(--violet); }
+.pg-team .network .lead{ font-size:22px; line-height:1.5; color:var(--muted); max-width:62ch; margin-top:18px; }
+.pg-team .partners{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px; margin-top:48px; }
+.pg-team .partner h3{ font-family:var(--font-head); font-weight:700; font-size:20px; color:var(--violet); margin-top:16px; }
+.pg-team .partner p{ font-size:14px; line-height:1.45; color:var(--muted); margin-top:4px; }
+.pg-team .partner-logo{ aspect-ratio:1/1; border-radius:20px; overflow:hidden; background:var(--panel-bg); display:flex; align-items:center; justify-content:center; }
+.pg-team .partner-logo img{ width:100%; height:100%; object-fit:fill; }
+.pg-team .partner-logo .mono{ font-family:var(--font-head); font-weight:700; font-size:48px; color:var(--violet); opacity:.35; }
+.pg-team .clients{ margin:140px 0 100px; }
+.pg-team .clients-ph{ margin-top:28px; padding:48px; border:1.5px dashed rgba(44,14,55,.3); border-radius:20px; color:var(--muted); font-size:15px; text-align:center; }
+@media (max-width:900px){
+.pg-team .team-page{ padding-top:120px; }
+.pg-team .team-hero h1{ font-size:48px; }
+.pg-team .member{ grid-template-columns:1fr; gap:28px; }
+.pg-team .member.rev .member-photo{ order:0; }
+.pg-team .member-body h3,.pg-team .network h2,.pg-team .clients h2{ font-size:36px; }
+.pg-team .members{ gap:64px; } .network, .clients{ margin-top:90px; }
+.pg-team .network .lead{ font-size:18px; }
+.pg-team .partners{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+}
+
+

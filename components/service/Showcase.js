@@ -15,7 +15,11 @@ export default function Showcase({ label, title, intro, items }) {
         </div>
         {intro && <p>{intro}</p>}
       </div>
-      <div className="showcase-scroll" id="showcaseScroll">
+      <div className="showcase-wrap">
+        <button type="button" className="swipe-hint" id="swipeHint" aria-label="Scorri i progetti">
+          →
+        </button>
+        <div className="showcase-scroll" id="showcaseScroll">
         {items.map((item, i) => {
           const cover = coverProps(item.heroImage, i);
           return (
@@ -25,6 +29,7 @@ export default function Showcase({ label, title, intro, items }) {
             </Link>
           );
         })}
+        </div>
       </div>
       <div style={{ textAlign: "center", marginTop: 40 }}>
         <Link href="/portfolio" className="btn-tertiary">

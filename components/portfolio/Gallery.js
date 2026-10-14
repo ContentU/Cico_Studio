@@ -59,6 +59,12 @@ export default function Gallery({ item }) {
           <button type="button" className="gallery-lightbox-close" id="galleryLightboxClose" aria-label="Chiudi">
             ✕
           </button>
+          <button type="button" className="gallery-lightbox-nav prev" id="galleryLightboxPrev" aria-label="Immagine precedente">
+            ‹
+          </button>
+          <button type="button" className="gallery-lightbox-nav next" id="galleryLightboxNext" aria-label="Immagine successiva">
+            ›
+          </button>
           <div className="gallery-lightbox-track" id="galleryLightboxTrack">
             {images.map((img, i) => (
               <div className="gallery-lightbox-item" key={img.full}>

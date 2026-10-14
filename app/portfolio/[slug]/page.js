@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { stripTags } from "../../../lib/format";
 import Header from "../../../components/Header";
 import MobileMenu from "../../../components/MobileMenu";
 import Footer from "../../../components/Footer";
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }) {
   if (!item) return {};
   return {
     title: `${item.title} — CICO Portfolio`,
-    description: item.descrizioneBreve || undefined,
+    description: stripTags(item.descrizioneBreve) || undefined,
   };
 }
 

@@ -80,3 +80,6 @@
 
 /* Con foto reale il segnaposto "foto in arrivo" non deve comparire */
 .pg-contatti .has-image::after{ content:none !important; }
+
+@media(max-width:600px){ .pg-contatti{ --pad:24px; } }
+@media(max-width:600px){ .pg-contatti .wrap{ padding-left:24px; padding-right:24px; } }

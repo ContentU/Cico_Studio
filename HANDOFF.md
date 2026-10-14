@@ -18,6 +18,13 @@ segnaposto, con warning `[wp] ...` in console).
 | Footer con link alle pagine di servizio | `components/Footer.js`, `lib/content.js` (`footerLinks`) |
 | Newsletter Brevo (footer di tutte le pagine) | `components/NewsletterForm.js`, `app/api/newsletter/route.js` |
 | Foto e video delle pagine di servizio | `public/images/servizi/`, `lib/serviziImages.js`, `components/service/Media.js` |
+| Menu con sottomenu (Hotel / B&B / Host non cliccabili) | `lib/content.js` (`navLinks`), `components/Header.js`, `components/MobileMenu.js`, CSS "MENU CON SOTTOVOCI" in `app/globals.css` |
+| Pagina Team (squadra + rete di competenze) | `app/team/page.js`, `lib/teamContent.js`, `public/images/team/`, `styles/team.css` |
+| CTA fissa mobile "Iniziamo un progetto" | `components/MobileCta.js` (montata in `app/layout.js`) |
+| Home: blocco "Ogni immagine secondo una tua esigenza" con hover sulle foto | `components/Lavoriamo.js`, CSS `.lav-card.has-img` in `app/globals.css` |
+| Grassetti negli accordion (marcatori `**testo**`) | `components/service/Rich.js`, `lib/serviziContent.js` |
+| Galleria portfolio: frecce + descrizione con formattazione | `components/portfolio/Gallery.js`, `components/portfolio/Scheda.js`, `lib/format.js` (`sanitizeRichText`) |
+| Favicon (spark) | `public/favicon.svg`, `app/layout.js` |
 | Redirect `/hotel` → `/fotografia-hotel` | `next.config.mjs` |
 
 **Rimossi:** la vecchia pagina `app/hotel` e i vecchi componenti `components/service/*` (v1),
@@ -72,5 +79,10 @@ git push -u origin feature/pagine-servizio-blog-contatti
 ```
 
 ## Aperti
+
+- Voci di menu "Social per hotel/B&B", "Video e social per host" e "Strumenti AI": per ora `href: "#"` in `lib/content.js` (pagine da scrivere; le tre voci social devono puntare alla stessa pagina).
+- Pagina Team: sezione "Hanno scelto il nostro lavoro" è un segnaposto (mancano i loghi clienti); Alberto Di Martino e Luciano Di Biasi non hanno ancora il logo.
+- Nuovi testi "Processo" e titoli accordion applicati solo alla pagina Hotel.
+- Favicon: solo SVG (eventuali PNG/ico per Safari e iOS da aggiungere).
 
 Vedi "Cosa manca ancora" in `README.md`.

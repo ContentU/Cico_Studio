@@ -67,3 +67,6 @@
 
 /* Con foto reale il segnaposto "foto in arrivo" non deve comparire */
 .pg-blog .has-image::after{ content:none !important; }
+
+@media(max-width:600px){ .pg-blog{ --pad:24px; } }
+@media(max-width:600px){ .pg-blog .wrap{ padding-left:24px; padding-right:24px; } }

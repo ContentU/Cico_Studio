@@ -125,7 +125,17 @@ export default function ClientInteractions() {
     const lightbox = document.getElementById("galleryLightbox");
     const lightboxTrack = document.getElementById("galleryLightboxTrack");
     const lightboxClose = document.getElementById("galleryLightboxClose");
+    const lightboxPrev = document.getElementById("galleryLightboxPrev");
+    const lightboxNext = document.getElementById("galleryLightboxNext");
     const galleryClickHandlers = [];
+    function stepLightbox(dir) {
+      if (!lightboxTrack) return;
+      lightboxTrack.scrollBy({ left: dir * lightboxTrack.clientWidth, behavior: "smooth" });
+    }
+    const onPrev = () => stepLightbox(-1);
+    const onNext = () => stepLightbox(1);
+    if (lightboxPrev) lightboxPrev.addEventListener("click", onPrev);
+    if (lightboxNext) lightboxNext.addEventListener("click", onNext);
     let touchStartX = 0;
     let touchStartY = 0;
 
@@ -150,7 +160,10 @@ export default function ClientInteractions() {
     });
     if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
     const onLightboxKeydown = (e) => {
-      if (e.key === "Escape" && lightbox?.classList.contains("open")) closeLightbox();
+      if (!lightbox?.classList.contains("open")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") stepLightbox(-1);
+      if (e.key === "ArrowRight") stepLightbox(1);
     };
     window.addEventListener("keydown", onLightboxKeydown);
     // Swipe up per chiudere, solo su mobile/touch: chiude solo se il gesto è
@@ -206,6 +219,8 @@ export default function ClientInteractions() {
       serviziListItems.forEach((item, i) => item.removeEventListener("click", clickHandlers[i]));
       galleryItems.forEach((el, i) => el.removeEventListener("click", galleryClickHandlers[i]));
       if (lightboxClose) lightboxClose.removeEventListener("click", closeLightbox);
+      if (lightboxPrev) lightboxPrev.removeEventListener("click", onPrev);
+      if (lightboxNext) lightboxNext.removeEventListener("click", onNext);
       window.removeEventListener("keydown", onLightboxKeydown);
       if (lightbox) {
         lightbox.removeEventListener("touchstart", onLightboxTouchStart);

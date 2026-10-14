@@ -1,6 +1,7 @@
 import { Lines } from "./lines";
 import PlusIcon from "./PlusIcon";
 import Media from "./Media";
+import Rich from "./Rich";
 
 // Fascia gialla: eyebrow (CTA), titolo, lead e accordion (chiusi di default;
 // il comportamento è in ServiceInteractions.js).
@@ -27,11 +28,15 @@ export default function BandSection({ eyebrow, band, images }) {
                       b.type === "ul" ? (
                         <ul key={i}>
                           {b.items.map((it) => (
-                            <li key={it}>{it}</li>
+                            <li key={it}>
+                              <Rich text={it} />
+                            </li>
                           ))}
                         </ul>
                       ) : (
-                        <p key={i}>{b.text}</p>
+                        <p key={i}>
+                          <Rich text={b.text} />
+                        </p>
                       )
                     )}
                   </div>

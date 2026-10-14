@@ -47,12 +47,26 @@ export default function ServiceInteractions() {
         const tallest = Math.max(...Array.from(stack.children).map((c) => c.offsetHeight));
         stack.classList.toggle(
           "can-sticky",
-          window.innerWidth > 880 && tallest + 96 + 22 * (stack.children.length - 1) < window.innerHeight
+          window.innerWidth > 880 && tallest + 84 + 18 * (stack.children.length - 1) + 8 <= window.innerHeight
         );
       };
       check();
       window.addEventListener("resize", check);
       cleanups.push(() => window.removeEventListener("resize", check));
+    }
+
+    // Hint swipe sul carosello dei lavori (solo mobile via CSS)
+    const sc = document.getElementById("showcaseScroll");
+    const hint = document.getElementById("swipeHint");
+    if (sc && hint) {
+      const onHint = () => sc.scrollBy({ left: sc.clientWidth * 0.8, behavior: "smooth" });
+      const onSc = () => hint.classList.toggle("gone", sc.scrollLeft > 20);
+      hint.addEventListener("click", onHint);
+      sc.addEventListener("scroll", onSc, { passive: true });
+      cleanups.push(() => {
+        hint.removeEventListener("click", onHint);
+        sc.removeEventListener("scroll", onSc);
+      });
     }
 
     return () => cleanups.forEach((fn) => fn());

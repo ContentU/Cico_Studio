@@ -1,3 +1,5 @@
+import { sanitizeRichText } from "../../lib/format";
+
 // "Scheda" tecnica del progetto: descrizione a sinistra, specifiche
 // strutturate a destra. Ogni riga viene mostrata solo se il relativo campo
 // ACF è valorizzato, così la scheda si adatta ai progetti con dati parziali.
@@ -16,7 +18,7 @@ export default function Scheda({ item }) {
   return (
     <section className="scheda-section">
       <div className="scheda-desc">
-        <p>{item.descrizioneBreve}</p>
+        <div className="scheda-rich" dangerouslySetInnerHTML={{ __html: sanitizeRichText(item.descrizioneBreve) }} />
       </div>
       <div className="scheda-specs">
         {rows.map((r) => (

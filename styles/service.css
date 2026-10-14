@@ -67,7 +67,9 @@
 .pg-service .showcase-section{ padding:0 0 130px; }
 .pg-service .showcase-head{ padding:0 32px; max-width:1180px; margin:0 auto 32px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; }
 .pg-service .showcase-head p{ color:var(--muted); font-size:15px; max-width:380px; }
-.pg-service .showcase-scroll{ display:flex; gap:24px; overflow-x:auto; padding:0 32px 12px; scroll-snap-type:x proximity; }
+.pg-service .showcase-wrap{ position:relative; }
+.pg-service .swipe-hint{ display:none; }
+.pg-service .showcase-scroll{ display:flex; gap:24px; overflow-x:auto; padding:0 max(24px, calc((100% - 1116px)/2)) 12px; scroll-padding-left:max(24px, calc((100% - 1116px)/2)); scroll-snap-type:x proximity; }
 .pg-service .showcase-card{ flex:0 0 320px; scroll-snap-align:start; }
 .pg-service .showcase-media{ height:420px; border-radius:20px; position:relative; overflow:hidden; }
 .pg-service .showcase-media::after{ content:'foto in arrivo'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:12px; color:rgba(0,0,0,.35); text-transform:uppercase; letter-spacing:.05em; }
@@ -79,7 +81,7 @@
 .pg-service .scard{ position:relative; border-radius:51px; min-height:510px; padding:34px clamp(24px,4.4vw,50px) 30px; margin-bottom:16px; display:flex; flex-direction:column; box-shadow:0 -10px 30px rgba(44,14,55,.08); }
 .pg-service .scard .ico{ width:76px; height:76px; margin-bottom:-6px; }
 .pg-service .scard h3{ font-family:var(--font-head); font-weight:700; font-size:clamp(22px,2.2vw,28px); margin:-52px 0 26px 95px; min-height:46px; display:flex; align-items:center; }
-.pg-service .scard .shot{ aspect-ratio:1086/267; background:#d9d9d9; border-radius:4px; position:relative; margin-bottom:22px; }
+.pg-service .scard .shot{ aspect-ratio:1086/380; background:#d9d9d9; border-radius:4px; position:relative; margin-bottom:22px; }
 .pg-service .scard .foot{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-top:auto; }
 .pg-service .scard .foot p{ font-size:16px; line-height:1.5; max-width:790px; }
 .pg-service .scard .more{ font-family:var(--font-body); font-weight:700; font-size:20px; color:var(--violet); text-decoration:underline; text-underline-offset:3px; white-space:nowrap; }
@@ -89,7 +91,7 @@
 .pg-service .scard.c2 h3, .pg-service .scard.c2 .ico{ color:var(--violet); }
 .pg-service .scard.c3{ background:var(--teal); color:#dfd4d4; }
 .pg-service .scard.c3 h3, .pg-service .scard.c3 .ico{ color:var(--yellow); }
-.pg-service .stack.can-sticky .scard{ position:sticky; top:calc(96px + var(--i) * 22px); }
+.pg-service .stack.can-sticky .scard{ position:sticky; top:calc(84px + var(--i) * 18px); }
 @media(prefers-reduced-motion:reduce){ .pg-service .stack.can-sticky .scard{ position:relative; top:auto; } }
 @media(max-width:880px){ .pg-service .scard{ border-radius:32px; } }
 @media(max-width:880px){ .pg-service .scard .foot{ flex-direction:column; align-items:flex-start; } }
@@ -128,3 +130,13 @@
 
 /* Con foto reale il segnaposto "foto in arrivo" non deve comparire */
 .pg-service .has-image::after{ content:none !important; }
+
+@media(max-width:600px){
+  .pg-service .swipe-hint{ display:flex; position:absolute; right:14px; top:190px; width:44px; height:44px; border-radius:50%; border:0; background:var(--cream); color:var(--violet); font-size:22px; align-items:center; justify-content:center; box-shadow:0 8px 22px rgba(44,14,55,.25); cursor:pointer; z-index:2; animation:nudge 1.6s ease-in-out infinite; transition:opacity .25s ease; }
+  .pg-service .swipe-hint.gone{ opacity:0; pointer-events:none; }
+  .pg-service .showcase-card{ flex-basis:78vw; }
+  .pg-service .showcase-head, .pg-service .showcase-note, .pg-service .service-cta-block{ padding-left:24px; padding-right:24px; }
+}
+@keyframes nudge{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(6px); } }
+
+@media(max-width:600px){ .pg-service{ --pad:24px; } }
