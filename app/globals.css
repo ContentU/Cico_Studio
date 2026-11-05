@@ -159,6 +159,8 @@ nav.main-links a, nav.main-links .sub-toggle{ font-size:16px; padding:8px 10px; 
 .sub a{ display:block; background:var(--cream); border-radius:0; padding:12px 18px; font-size:15px; white-space:normal; border:1px solid rgba(44,14,55,0.08); border-bottom:0; box-shadow:0 14px 30px rgba(44,14,55,0.10); }
 .sub a:first-child{ border-radius:16px 16px 0 0; } .sub a:last-child{ border-radius:0 0 16px 16px; border-bottom:1px solid rgba(44,14,55,0.08); }
 .sub a:hover{ background:#f3e9de; }
+nav.main-links .sub a:hover{ background:var(--violet); color:var(--cream); }
+nav.main-links .sub a{ transition:background .2s ease, color .2s ease; }
 nav.main-links .sub a{ border-radius:0; }
 nav.main-links .sub a:first-child{ border-radius:16px 16px 0 0; }
 nav.main-links .sub a:last-child{ border-radius:0 0 16px 16px; }
