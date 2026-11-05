@@ -31,7 +31,7 @@ export default function ClientInteractions() {
     const menuLinks = Array.from(mobileMenu.querySelectorAll("a"));
     menuLinks.forEach((a) => a.addEventListener("click", closeMobileMenu));
     const onResizeCloseMenu = () => {
-      if (window.innerWidth > 880) closeMobileMenu();
+      if (window.innerWidth > 1180) closeMobileMenu();
     };
     window.addEventListener("resize", onResizeCloseMenu);
 
@@ -42,16 +42,16 @@ export default function ClientInteractions() {
     // di riferimento non è presente nella pagina corrente.
     const revealEl = document.getElementById("revealText");
     const words = revealEl ? revealEl.querySelectorAll(".word") : [];
-    const mainTextSection = document.getElementById("main-text");
     function updateReveal() {
-      if (!mainTextSection || !words.length) return;
-      const rect = mainTextSection.getBoundingClientRect();
+      if (!revealEl || !words.length) return;
+      // Il testo si colora mentre scorre dentro lo schermo e il colore è completo
+      // quando l'intero paragrafo è visibile (fondo del testo a ~78% dell'altezza).
+      const rect = revealEl.getBoundingClientRect();
       const vh = window.innerHeight;
-      const start = vh * 0.85;
-      const end = -rect.height * 0.3;
-      const total = start - end;
-      const progress = Math.min(1, Math.max(0, (start - rect.top) / total));
-      const activeCount = Math.floor(progress * words.length);
+      const startTop = vh * 0.88; // inizio: il testo entra dal basso
+      const endTop = vh * 0.78 - rect.height; // fine: il fondo del testo è tutto visibile
+      const progress = Math.min(1, Math.max(0, (startTop - rect.top) / (startTop - endTop)));
+      const activeCount = Math.ceil(progress * words.length);
       words.forEach((w, i) => w.classList.toggle("active", i < activeCount));
     }
 
