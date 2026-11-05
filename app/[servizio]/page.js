@@ -44,7 +44,7 @@ export default async function ServicePage({ params }) {
   ]);
 
   return (
-    <div className="pg-service">
+    <div className={`pg-service${params.servizio === "video-hotel" ? " pg-video" : ""}`}>
       <Header />
       <MobileMenu />
       <main>

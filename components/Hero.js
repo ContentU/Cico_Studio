@@ -80,9 +80,9 @@ export default function Hero() {
             </h1>
           </div>
         </div>
-        <p className="hero-sub">
-          Fotografia, video e contenuti social per hotel, host e progetti di
-          architettura in Sicilia e oltre.
+        <p className="hero-hook">
+          <strong>Il soggiorno comincia al check-in.</strong>{" "}
+          <span>La scelta comincia dalle fotografie.</span>
         </p>
         <a href="#portfolio" className="scroll-badge" aria-label="Scopri il portfolio">
           <svg viewBox="0 0 100 100" aria-hidden="true">

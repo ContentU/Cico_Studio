@@ -3,8 +3,9 @@ import MobileMenu from "../components/MobileMenu";
 import Hero from "../components/Hero";
 import MainText from "../components/MainText";
 import Portfolio from "../components/Portfolio";
-import Servizi from "../components/Servizi";
-import Lavoriamo from "../components/Lavoriamo";
+import HomeImages from "../components/HomeImages";
+import ServiziHome from "../components/ServiziHome";
+import Perche from "../components/Perche";
 import Blog from "../components/Blog";
 import Footer from "../components/Footer";
 import ClientInteractions from "../components/ClientInteractions";
@@ -16,9 +17,10 @@ export default function Home() {
       <MobileMenu />
       <Hero />
       <MainText />
+      <HomeImages />
       <Portfolio />
-      <Servizi />
-      <Lavoriamo />
+      <ServiziHome />
+      <Perche />
       <Blog />
       <Footer />
       <ClientInteractions />

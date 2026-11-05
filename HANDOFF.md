@@ -25,6 +25,12 @@ segnaposto, con warning `[wp] ...` in console).
 | Grassetti negli accordion (marcatori `**testo**`) | `components/service/Rich.js`, `lib/serviziContent.js` |
 | Galleria portfolio: frecce + descrizione con formattazione | `components/portfolio/Gallery.js`, `components/portfolio/Scheda.js`, `lib/format.js` (`sanitizeRichText`) |
 | Favicon (spark) | `public/favicon.svg`, `app/layout.js` |
+| Menu senza "Contatti" e senza voci social; sotto 1180px menu burger | `lib/content.js` (`navLinks`), `app/globals.css`, `components/ClientInteractions.js` |
+| Footer: telefono e dati legali (P. IVA, REA) su tutte le pagine | `components/Footer.js`, `lib/content.js` (`legalInfo`, `footerLinks`) |
+| Home: hook nell'hero, 4 foto + posizionamento, servizi a 3 card, "Perché CICO" con audio, invito CTA nel footer | `components/Hero.js`, `HomeImages.js`, `ServiziHome.js`, `Perche.js`, `TestimonialAudio.js`, `public/images/home/`, `public/audio/` |
+| Pagine servizi: nuovi testi processo, Video 16:9 ("Video hospitality"), nuove foto | `lib/serviziContent.js`, `lib/serviziImages.js`, `styles/service.css` (`.pg-video`) |
+| Blog filtrabile da indirizzo (`/blog?cat=Hotel`) | `components/blog/BlogIndex.js` |
+| Team: foto più piccole + foto del libro | `lib/teamContent.js`, `app/team/page.js`, `styles/team.css` |
 | Redirect `/hotel` → `/fotografia-hotel` | `next.config.mjs` |
 
 **Rimossi:** la vecchia pagina `app/hotel` e i vecchi componenti `components/service/*` (v1),
@@ -80,7 +86,8 @@ git push -u origin feature/pagine-servizio-blog-contatti
 
 ## Aperti
 
-- Voci di menu "Social per hotel/B&B", "Video e social per host" e "Strumenti AI": per ora `href: "#"` in `lib/content.js` (pagine da scrivere; le tre voci social devono puntare alla stessa pagina).
+- "Strumenti AI" nel menu: per ora `href: "#"` in `lib/content.js` (pagina da definire). Le voci "social" sono state tolte dal menu finché non esiste la pagina.
+- Home: il testo grande (`components/MainText.js`) cita ancora "studi di architettura"; testimonianza di Maria R. da confermare col cliente (testo e consenso); la home mostra il portfolio da WordPress (se il CMS non risponde compaiono i dati segnaposto: controllare il certificato di cms.cicostudio.it).
 - Pagina Team: sezione "Hanno scelto il nostro lavoro" è un segnaposto (mancano i loghi clienti); Alberto Di Martino e Luciano Di Biasi non hanno ancora il logo.
 - Nuovi testi "Processo" e titoli accordion applicati solo alla pagina Hotel.
 - Favicon: solo SVG (eventuali PNG/ico per Safari e iOS da aggiungere).

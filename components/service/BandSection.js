@@ -13,7 +13,7 @@ export default function BandSection({ eyebrow, band, images }) {
         <h2 className="h-display">
           <Lines text={band.title} />
         </h2>
-        <p className="lead">{band.lead}</p>
+        {band.lead && <p className="lead">{band.lead}</p>}
         <div className="rows">
           {band.rows.map((row, ri) => (
             <div className="row" key={row.title}>

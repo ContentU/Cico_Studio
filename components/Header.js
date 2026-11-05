@@ -24,7 +24,11 @@ export default function Header() {
         <nav className="main-links">
           {navLinks.map((link) =>
             link.children ? (
-              <div className={`has-sub${openSub === link.label ? " open" : ""}`} key={link.label}>
+              <div
+                className={`has-sub${openSub === link.label ? " open" : ""}`}
+                key={link.label}
+                onMouseEnter={() => setOpenSub((prev) => (prev === link.label ? prev : null))}
+              >
                 <button
                   type="button"
                   className="sub-toggle"

@@ -41,6 +41,12 @@ export default function TeamPage() {
                 {m.bio.map((p, k) => (
                   <p key={k}>{p}</p>
                 ))}
+                {m.extra && (
+                  <figure className="member-extra">
+                    <img src={m.extra.src} alt={m.extra.alt} width="1200" height="800" loading="lazy" />
+                    <figcaption>{m.extra.caption}</figcaption>
+                  </figure>
+                )}
               </div>
             </article>
           ))}

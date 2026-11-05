@@ -26,6 +26,12 @@ export default function BlogIndex({ posts }) {
   const visible = list.slice(0, shown);
   const hasMore = shown < list.length;
 
+  // /blog?cat=Hotel apre l'indice già filtrato (link dal processo della pagina Hotel)
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get("cat");
+    if (q && cats.includes(q)) setCat(q);
+  }, [cats]);
+
   const selectCat = (c) => {
     setCat(c);
     setShown(BATCH);
