@@ -1,6 +1,6 @@
 const text =
-  "CICO è il centro immagine e comunicazione per l'ospitalità. Lavoriamo con hotel, host e studi di architettura per trasformare spazi ed esperienze in contenuti che comunicano, convertono e restano.";
-const accentWords = ["comunicano,", "convertono", "restano."];
+  "Siamo CICO e abbiamo un'ossessione: far venire voglia di prenotare. Foto e video per hotel, B&B, ville e appartamenti che si fanno notare, convincono e vengono scelti.";
+const accentWords = ["prenotare.", "notare,", "convincono", "scelti."];
 
 export default function MainText() {
   const words = text.split(" ");

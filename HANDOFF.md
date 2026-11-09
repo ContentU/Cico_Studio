@@ -84,6 +84,11 @@ git commit -m "Home v2, pagine di servizio, blog, articolo, contatti, WhatsApp"
 git push -u origin feature/pagine-servizio-blog-contatti
 ```
 
+## Home v3 (novembre 2026)
+- Hero: sotto il titolo c'è una foto (`HeroExpand.js`) che si allarga allo scroll e diventa uno slider a 5 slide (Hotel, B&B, Ville, Appartamenti, Immobili di pregio, foto = copertine delle pagine servizio).
+- Testo che si colora (`MainText.js`) con nuovo copy; sezione "Cosa realizziamo" (`Lavoriamo.js`) con 3 card a colore; "Perché CICO" (`Perche.js`) in fascia gialla con 3 card animate e CTA audio.
+- Rimossi `HomeImages.js`, `ServiziHome.js`, `TestimonialAudio.js`.
+
 ## Aperti
 
 - "Strumenti AI" nel menu: per ora `href: "#"` in `lib/content.js` (pagina da definire). Le voci "social" sono state tolte dal menu finché non esiste la pagina.
