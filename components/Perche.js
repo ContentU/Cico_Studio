@@ -11,6 +11,15 @@ export default function Perche() {
   const yearRef = useRef(null);
   const sectionRef = useRef(null);
   const [playing, setPlaying] = useState(false);
+  const [time, setTime] = useState(0);
+  const [dur, setDur] = useState(0);
+  const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+  const seek = (e) => {
+    const a = audioRef.current;
+    if (!a) return;
+    a.currentTime = Number(e.target.value);
+    setTime(a.currentTime);
+  };
 
   const toggle = () => {
     const a = audioRef.current;
@@ -60,7 +69,7 @@ export default function Perche() {
       <div className="pcb-in">
         <span className="section-label">Perché CICO</span>
         <div className="pcb-grid">
-          <article className={"pcb-card pcb-big" + (playing ? " is-playing" : "")}>
+          <article className="pcb-card pcb-big">
             <div>
               <blockquote className="pcb-quote">
                 «Sono i soldi meglio spesi <em>nella mia vita.</em>»
@@ -79,7 +88,29 @@ export default function Perche() {
               <div className="pc-eq" aria-hidden="true">
                 <i /><i /><i /><i /><i /><i /><i />
               </div>
-              <audio ref={audioRef} preload="none" src="/audio/testimonianza.mp3" onEnded={() => setPlaying(false)} />
+              <div className="pc-bar">
+                <span className="pc-time">{fmt(time)}</span>
+                <input
+                  type="range"
+                  className="pc-range"
+                  min="0"
+                  max={dur || 1}
+                  step="0.1"
+                  value={time}
+                  onChange={seek}
+                  aria-label="Posizione della testimonianza"
+                  style={{ "--pct": dur ? (time / dur) * 100 + "%" : "0%" }}
+                />
+                <span className="pc-time">{dur ? fmt(dur) : "--:--"}</span>
+              </div>
+              <audio
+                ref={audioRef}
+                preload="metadata"
+                src="/audio/testimonianza.mp3"
+                onLoadedMetadata={(e) => setDur(e.currentTarget.duration || 0)}
+                onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)}
+                onEnded={() => { setPlaying(false); setTime(0); }}
+              />
             </div>
           </article>
           <article className="pcb-card pcb-year">
