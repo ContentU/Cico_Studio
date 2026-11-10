@@ -646,7 +646,7 @@ nav.main-links > *{ flex-shrink:0; white-space:nowrap; }
 @keyframes pcPulse{ 0%{ transform:scale(1); opacity:.9; } 100%{ transform:scale(1.7); opacity:0; } }
 .pc-eq{ display:flex; align-items:flex-end; gap:4px; height:34px; }
 .pc-eq i{ width:5px; height:30%; border-radius:3px; background:var(--yellow); opacity:.55; }
-.pcb-big.is-playing .pc-eq i, .pc-audio-big.playing ~ .pc-eq i{ opacity:1; animation:pcEq 1s ease-in-out infinite; }
+.pc-audio-big.playing ~ .pc-eq i{ opacity:1; animation:pcEq 1s ease-in-out infinite; }
 .pc-eq i:nth-child(2){ animation-delay:.15s !important; } .pc-eq i:nth-child(3){ animation-delay:.3s !important; } .pc-eq i:nth-child(4){ animation-delay:.1s !important; } .pc-eq i:nth-child(5){ animation-delay:.25s !important; } .pc-eq i:nth-child(6){ animation-delay:.05s !important; } .pc-eq i:nth-child(7){ animation-delay:.2s !important; }
 @keyframes pcEq{ 0%,100%{ height:25%; } 50%{ height:100%; } }
 .pcb-year{ background:var(--teal); } .pcb-team{ background:var(--watermelon); }
@@ -657,3 +657,10 @@ nav.main-links > *{ flex-shrink:0; white-space:nowrap; }
 .pcb-team .skills{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; } .pcb-team .skills span{ border:1.5px solid rgba(251,244,236,.6); border-radius:100px; padding:6px 14px; font-size:13px; font-weight:500; }
 @media(max-width:860px){ .pcb-grid{ grid-template-columns:1fr; } .pcb-big{ grid-template-columns:1fr; } .pcb-cta{ align-items:flex-start; text-align:left; } }
 @media(prefers-reduced-motion:reduce){ .pcb-card{ opacity:1; transform:none; transition:none; } .pc-audio-big .pc-ico::before,.pc-eq i{ animation:none !important; } }
+
+.pc-bar{ display:flex; align-items:center; gap:12px; width:min(100%,340px); }
+.pc-time{ font-size:13px; font-variant-numeric:tabular-nums; opacity:.85; min-width:38px; }
+.pc-range{ flex:1; -webkit-appearance:none; appearance:none; height:6px; border-radius:6px; cursor:pointer; background:linear-gradient(90deg,var(--yellow) var(--pct,0%),rgba(251,244,236,.28) var(--pct,0%)); }
+.pc-range::-webkit-slider-thumb{ -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:var(--yellow); border:0; }
+.pc-range::-moz-range-thumb{ width:16px; height:16px; border-radius:50%; background:var(--yellow); border:0; }
+.pc-range:focus-visible{ outline:2px solid var(--yellow); outline-offset:4px; }
