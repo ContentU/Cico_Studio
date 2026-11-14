@@ -4,7 +4,7 @@ import Hero from "../components/Hero";
 import MainText from "../components/MainText";
 import Portfolio from "../components/Portfolio";
 import HeroExpand from "../components/HeroExpand";
-import Lavoriamo from "../components/Lavoriamo";
+import PhotoBand from "../components/PhotoBand";
 import Perche from "../components/Perche";
 import Blog from "../components/Blog";
 import Footer from "../components/Footer";
@@ -19,8 +19,8 @@ export default function Home() {
       <HeroExpand />
       <MainText />
       <Portfolio />
-      <Lavoriamo />
       <Perche />
+      <PhotoBand />
       <Blog />
       <Footer />
       <ClientInteractions />
