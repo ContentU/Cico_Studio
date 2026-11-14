@@ -84,10 +84,12 @@ git commit -m "Home v2, pagine di servizio, blog, articolo, contatti, WhatsApp"
 git push -u origin feature/pagine-servizio-blog-contatti
 ```
 
-## Home v3 (novembre 2026)
-- Hero: sotto il titolo c'è una foto (`HeroExpand.js`) che si allarga allo scroll e diventa uno slider a 5 slide (Hotel, B&B, Ville, Appartamenti, Immobili di pregio, foto = copertine delle pagine servizio).
-- Testo che si colora (`MainText.js`) con nuovo copy; sezione "Cosa realizziamo" (`Lavoriamo.js`) con 3 card a colore; "Perché CICO" (`Perche.js`) in fascia gialla con 3 card animate e CTA audio.
-- Rimossi `HomeImages.js`, `ServiziHome.js`, `TestimonialAudio.js`.
+## Home v5 (novembre 2026)
+- Hero: foto sotto il titolo (`HeroExpand.js`) che si allarga allo scroll. Desktop: slider VERTICALE a passi (uno scroll = una slide, puntini e frecce tastiera); mobile/tablet: carosello orizzontale da scorrere col dito. Occhiello "Servizi fotografici per" + tipologia.
+- Portfolio home a 3 colonne (2 su mobile), foto 16:10, titoli col font di corpo (`.portfolio-home`).
+- "Cosa realizziamo" rimossa. Nuovo blocco fotografico `PhotoBand.js` (Home_1..4) tra Perché CICO e blog.
+- Perché CICO (`Perche.js`): fascia gialla con 3 card animate e audio con barra di avanzamento.
+- Rimossi `HomeImages.js`, `ServiziHome.js`, `TestimonialAudio.js`, `Lavoriamo.js`.
 
 ## Aperti
 

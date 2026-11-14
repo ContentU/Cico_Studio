@@ -7,7 +7,7 @@ import { coverProps } from "../lib/media";
 export default async function Portfolio() {
   const items = (await getAllPortfolio()).slice(0, 6);
   return (
-    <section className="portfolio" id="portfolio">
+    <section className="portfolio portfolio-home" id="portfolio">
       <div className="section-head">
         <div>
           <span className="section-label">Portfolio</span>
