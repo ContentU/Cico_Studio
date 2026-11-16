@@ -1,6 +1,7 @@
 import "./globals.css";
 import WhatsAppFab from "../components/WhatsAppFab";
 import MobileCta from "../components/MobileCta";
+import PageLoader from "../components/PageLoader";
 
 export const metadata = {
   icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }] },
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
         {children}
         <MobileCta />
         <WhatsAppFab />
+        <PageLoader />
       </body>
     </html>
   );

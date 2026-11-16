@@ -77,10 +77,9 @@ export default function Perche() {
               <p className="pcb-text">
                 «Dopo il tuo servizio fotografico è stata la svolta. [...] Ho lavorato ininterrottamente da marzo [...] È stato un successone.»
               </p>
-              <p className="pcb-by">Testimonianza reale di Maria R.</p>
             </div>
             <div className="pcb-cta">
-              <small>Non crederci sulla parola</small>
+              <p className="pcb-by">Testimonianza reale di Maria R.</p>
               <button type="button" className={"pc-audio-big" + (playing ? " playing" : "")} aria-pressed={playing} onClick={toggle}>
                 <span className="pc-ico" aria-hidden="true">{playing ? "❚❚" : "▶"}</span>
                 <span className="pc-lbl">{playing ? "Metti in pausa" : "Ascolta la testimonianza"}</span>
@@ -124,7 +123,7 @@ export default function Perche() {
             <h3>Un team, competenze diverse.</h3>
             <p>I professionisti giusti per ogni progetto, dallo scatto alla consegna.</p>
             <div className="skills">
-              <span>Fotografia</span><span>Video</span><span>Styling</span><span>Postproduzione</span>
+              <span>Fotografia</span><span>Video</span><span>Home staging</span><span>Set design</span><span>Postproduzione</span>
             </div>
             <Link href="/team" className="btn-tertiary">
               Conosci CICO e il team <span className="arrow">→</span>

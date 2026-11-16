@@ -84,6 +84,7 @@ export default function Hero() {
           <strong>Il soggiorno comincia al check-in.</strong>{" "}
           <span>La scelta comincia dalle fotografie.</span>
         </p>
+        <p className="hero-pos">Fotografia professionale e produzioni video per l&apos;ospitalità in Sicilia e oltre.</p>
         <a href="#portfolio" className="scroll-badge" aria-label="Scopri il portfolio">
           <svg viewBox="0 0 100 100" aria-hidden="true">
             <defs>

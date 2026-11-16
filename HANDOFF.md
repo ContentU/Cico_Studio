@@ -84,12 +84,14 @@ git commit -m "Home v2, pagine di servizio, blog, articolo, contatti, WhatsApp"
 git push -u origin feature/pagine-servizio-blog-contatti
 ```
 
-## Home v5 (novembre 2026)
-- Hero: foto sotto il titolo (`HeroExpand.js`) che si allarga allo scroll. Desktop: slider VERTICALE a passi (uno scroll = una slide, puntini e frecce tastiera); mobile/tablet: carosello orizzontale da scorrere col dito. Occhiello "Servizi fotografici per" + tipologia.
-- Portfolio home a 3 colonne (2 su mobile), foto 16:10, titoli col font di corpo (`.portfolio-home`).
-- "Cosa realizziamo" rimossa. Nuovo blocco fotografico `PhotoBand.js` (Home_1..4) tra Perché CICO e blog.
-- Perché CICO (`Perche.js`): fascia gialla con 3 card animate e audio con barra di avanzamento.
-- Rimossi `HomeImages.js`, `ServiziHome.js`, `TestimonialAudio.js`, `Lavoriamo.js`.
+## Home v8 (novembre 2026)
+Ordine: Hero tipografica (3 righe) → Portfolio (2 colonne, foto 3:2, selezione con tag "homepage" in WordPress; se nessun progetto ha il tag mostra i primi 4) → Servizi (`ServiziHome.js`: titolo e testo su sfondo rosato + sezione fissata con foto a destra, lista Hotel/B&B/Host e testo a sinistra; su mobile si tocca la voce) → Perché CICO (`Perche.js`: fascia gialla, 3 card, audio con barra) → Blog → CTA (footer).
+- Portfolio /portfolio: 3 colonne desktop / 2 mobile, nessun filtro, tag Foto/Video sulle card.
+- Loader di ~0,5 s al cambio pagina (`PageLoader.js`).
+- Pagina /strumenti-ai ("Coming soon").
+- Footer: "Palermo, Sicilia" + sede legale nella riga legale.
+- Rimossi slider hero, testo che si colora, blocco foto, "Cosa realizziamo".
+- Da fare in WordPress: creare il tag "homepage" (Progetto Tag) e assegnarlo ai progetti da mostrare in home.
 
 ## Aperti
 
