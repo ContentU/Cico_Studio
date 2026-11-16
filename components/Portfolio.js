@@ -1,22 +1,22 @@
 import Link from "next/link";
-import { getAllPortfolio } from "../lib/wp";
+import { getHomePortfolio, fotoVideoTags } from "../lib/wp";
 import { coverProps } from "../lib/media";
 
-// Ultimi progetti dal CMS (WordPress): copertina = Featured Image del
-// progetto, categoria = Macroarea, tag = Servizi realizzati.
+// Selezione di progetti per la home: quelli con tag "homepage" in WordPress
+// (in ordine di data di pubblicazione). Copertina = Featured Image del
+// progetto; sulle card restano visibili solo i tag Foto/Video.
 export default async function Portfolio() {
-  const items = (await getAllPortfolio()).slice(0, 6);
+  const items = await getHomePortfolio(6, 4);
   return (
     <section className="portfolio portfolio-home" id="portfolio">
       <div className="section-head">
         <div>
           <span className="section-label">Portfolio</span>
-          <h2 className="section-title">Gli ultimi progetti</h2>
+          <h2 className="section-title">
+            Scopri i nostri progetti <span className="dn">↓</span>
+          </h2>
         </div>
-        <p>
-          Una selezione dei sei lavori più recenti: hotel, host e architettura
-          raccontati per immagini.
-        </p>
+        <p>Una selezione dei nostri lavori.</p>
       </div>
       <div className="portfolio-grid" id="portfolioGrid">
         {items.map((item, i) => {
@@ -27,9 +27,8 @@ export default async function Portfolio() {
               <div className="p-body">
                 <h3>{item.title}</h3>
                 <div className="tags">
-                  {item.macroarea && <span className="tag cat">{item.macroarea}</span>}
-                  {(item.serviziRealizzati || []).slice(0, 3).map((t) => (
-                    <span className="tag" key={t}>
+                  {fotoVideoTags(item).map((t) => (
+                    <span className="tag cat" key={t}>
                       {t}
                     </span>
                   ))}
@@ -39,9 +38,9 @@ export default async function Portfolio() {
           );
         })}
       </div>
-      <div className="portfolio-cta">
-        <Link href="/portfolio" className="btn-secondary">
-          Vedi tutto il portfolio
+      <div className="portfolio-more">
+        <Link href="/portfolio" className="btn-tertiary">
+          Scopri il portfolio completo <span className="arrow">→</span>
         </Link>
       </div>
     </section>

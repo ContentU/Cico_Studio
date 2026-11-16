@@ -1,7 +1,7 @@
 import Link from "next/link";
 import BrandMark from "./Logo";
 import NewsletterForm from "./NewsletterForm";
-import { footerLinks, legalInfo } from "../lib/content";
+import { footerLinks, legalInfo, legalAddress } from "../lib/content";
 
 // Footer condiviso da tutte le pagine.
 // - `claim`: contenuto del titolo (default: claim della home)
@@ -15,19 +15,19 @@ export default function Footer({ claim, slim = false }) {
         <h2 className="footer-claim">
           {claim || (
             <>
-              Pronti a raccontare
+              Cerchi un fotografo
               <br />
-              il <span className="hl">vostro spazio</span>?
+              per la <span className="hl">tua struttura</span>?
             </>
           )}
         </h2>
         {!claim && (
           <p className="footer-invite">
-            Raccontaci cosa ti serve: partiamo dalla struttura e dall&apos;uso reale che farai delle immagini.
+            Raccontaci cosa ti serve: fotografie per portali e siti web, contenuti per il tuo brand o una produzione video.
           </p>
         )}
         <Link href="/contatti" className="btn-primary on-dark">
-          {claim ? "Inizia il progetto" : "Iniziamo un progetto"} <span className="arrow">→</span>
+          {claim ? "Inizia il progetto" : "Parliamo del tuo progetto"} <span className="arrow">→</span>
         </Link>
       </div>
       <div className="footer-grid">
@@ -64,7 +64,7 @@ export default function Footer({ claim, slim = false }) {
           </a>
           {!slim && (
             <>
-              <a href="#">{footerLinks.contatti.indirizzo}</a>
+              <span className="footer-place">{footerLinks.contatti.indirizzo}</span>
               <div className="socials" style={{ marginTop: "14px" }}>
                 <a href="#" aria-label="Instagram">
                   IG
@@ -82,6 +82,8 @@ export default function Footer({ claim, slim = false }) {
           © 2026 CICO. Tutti i diritti riservati.
           <br />
           {legalInfo}
+          <br />
+          {legalAddress}
         </span>
         <span>Privacy Policy · Termini di servizio</span>
       </div>
