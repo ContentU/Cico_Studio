@@ -30,10 +30,10 @@
 .pg-contatti .contact-top h1 .hl{ color:var(--watermelon); }
 .pg-contatti .contact-top .intro{ font-size:clamp(17px,1.7vw,21px); line-height:1.6; color:var(--muted); max-width:640px; margin-top:22px; }
 .pg-contatti .contact-grid{ display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); gap:clamp(32px,5vw,72px); margin-top:clamp(40px,5vw,64px); align-items:start; }
-@media(max-width:880px){ .pg-contatti .contact-grid{ grid-template-columns:1fr; } }
+@media(max-width:900px){ .pg-contatti .contact-grid{ grid-template-columns:1fr; } }
 .pg-contatti .form-card{ background:var(--panel-bg); border-radius:32px; padding:clamp(24px,4vw,48px); }
 .pg-contatti .row2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-@media(max-width:620px){ .pg-contatti .row2{ grid-template-columns:1fr; } }
+@media(max-width:600px){ .pg-contatti .row2{ grid-template-columns:1fr; } }
 .pg-contatti .field{ margin-bottom:18px; display:block; }
 .pg-contatti .field > span, .pg-contatti .legend{ display:block; font-size:13px; font-weight:500; color:var(--violet); margin-bottom:8px; }
 .pg-contatti .field > span em, .pg-contatti .legend em{ font-style:normal; color:var(--muted); font-weight:400; }

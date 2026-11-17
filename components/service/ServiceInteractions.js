@@ -47,7 +47,7 @@ export default function ServiceInteractions() {
         const tallest = Math.max(...Array.from(stack.children).map((c) => c.offsetHeight));
         stack.classList.toggle(
           "can-sticky",
-          window.innerWidth > 880 && tallest + 84 + 18 * (stack.children.length - 1) + 8 <= window.innerHeight
+          window.innerWidth > 900 && tallest + 84 + 18 * (stack.children.length - 1) + 8 <= window.innerHeight
         );
       };
       check();

@@ -70,7 +70,7 @@ export default function ServiziHome() {
     let raf = 0;
     const update = () => {
       raf = 0;
-      if (window.innerWidth <= 880) return;
+      if (window.innerWidth <= 900) return;
       const rect = pin.getBoundingClientRect();
       const scrollable = rect.height - window.innerHeight;
       const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
@@ -83,7 +83,7 @@ export default function ServiziHome() {
     const handlers = items.map((item, i) => {
       const go = () => {
         setActive(i);
-        if (window.innerWidth > 880) {
+        if (window.innerWidth > 900) {
           const rect = pin.getBoundingClientRect();
           const range = rect.height - window.innerHeight;
           window.scrollTo({ top: window.scrollY + rect.top + ((i + 0.5) / items.length) * range, behavior: "smooth" });
