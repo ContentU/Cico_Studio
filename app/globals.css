@@ -821,12 +821,11 @@ nav.main-links > *{ flex-shrink:0; white-space:nowrap; }
 }
 /* Schermi bassi (portatili): testi e foto proporzionati all'altezza */
 @media(min-width:901px) and (max-height:820px){
-  .sf-left .s-item{ font-size:clamp(32px,4vw,52px); }
   .sf-left{ gap:clamp(14px,2.6vh,28px); }
   .sf-left .servizi-panels{ min-height:clamp(190px,32vh,250px); }
   .sf-photo{ height:72vh; top:calc(50% - 36vh); }
 }
-@media(min-width:901px) and (max-height:700px){ .sf-left .s-panel p{ font-size:14px; line-height:1.45; } }
+@media(min-width:901px) and (max-height:700px){ .sf-left .s-panel p{ font-size:16px; line-height:1.5; } }
 
 /* Freccia attiva: SVG teal (la freccia testuale diventa emoji su iOS) */
 .servizi-list .s-item.active::after,
@@ -856,3 +855,26 @@ nav.main-links > *{ flex-shrink:0; white-space:nowrap; }
 .vg-play{ position:absolute; left:50%; top:50%; width:64px; height:64px; margin:-32px 0 0 -32px; border-radius:50%; background:rgba(255,255,255,.92); }
 .vg-play::after{ content:''; position:absolute; left:26px; top:20px; border-style:solid; border-width:12px 0 12px 19px; border-color:transparent transparent transparent var(--teal); }
 @media(max-width:760px){ .vg-grid{ grid-template-columns:1fr; } .vg-reel{ grid-template-columns:1fr 1fr; } .vg-reel .vg-item:first-child{ grid-column:1/-1; } }
+
+/* ===== Scala tipografica fluida =====
+   Ancorata a 1512px (MacBook 14" retina = 1512x860 CSS px). Cresce in modo
+   continuo da 1100 a 1920px e si ferma li' (tetto): niente soglie da rincorrere.
+   Per ritoccare tutto il sito basta cambiare questi 4 valori. */
+:root{
+  --fs-body:clamp(16px, 0.7vw + 7.4px, 20px);   /* ~18px a 1512 */
+  --fs-lead:clamp(18px, 0.9vw + 8px, 25px);     /* ~21.6px a 1512 */
+  --fs-card:clamp(18px, 0.75vw + 8px, 24px);    /* titoli card */
+  --fs-small:clamp(14px, 0.45vw + 7.5px, 17px); /* tag, note */
+}
+@media(min-width:1100px){
+  body{ font-size:var(--fs-body); }
+  .s-panel p, .sf-left .s-panel p{ font-size:var(--fs-body); line-height:1.6; max-width:34em; }
+  .sf-left .s-panel{ max-width:36em; }
+  .sx-intro .im-lead, .hero-pos{ font-size:var(--fs-lead); }
+  .sx-intro .im-sub, .section-head p{ font-size:var(--fs-body); max-width:30em; }
+  .portfolio-home .p-body h3{ font-size:var(--fs-card); }
+  .pcb-card p{ font-size:var(--fs-body); }
+  .p-body .tag{ font-size:var(--fs-small); }
+}
+/* Altezza ridotta: il testo non cresce oltre il necessario */
+@media(min-width:1100px) and (max-height:760px){ :root{ --fs-body:clamp(15px,0.55vw + 7.4px,18px); } }
