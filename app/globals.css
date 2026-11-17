@@ -778,7 +778,7 @@ nav.main-links > *{ flex-shrink:0; white-space:nowrap; }
   .sf-left .servizi-list{ order:1; flex-direction:row; flex-wrap:wrap; gap:6px 18px; margin-bottom:22px; }
   .sf-left .s-item{ font-size:clamp(28px,8vw,38px); }
   .sf-left .s-item.active::before{ left:0; top:-14px; }
-  .sf-photo{ order:2; position:relative; inset:auto; width:auto; aspect-ratio:4/5; border-radius:22px; }
+  .sf-photo{ order:2; position:relative; inset:auto; width:auto; aspect-ratio:3/2; border-radius:22px; }
   .sf-left .servizi-panels{ order:3; min-height:0; margin-top:24px; }
   .sf-stage .servizi-progress{ display:none; }
 }
@@ -839,7 +839,7 @@ nav.main-links > *{ flex-shrink:0; white-space:nowrap; }
 @media(max-width:900px){
   .sf-left .servizi-list{ flex-wrap:nowrap; gap:4px 16px; white-space:nowrap; }
   .sf-left .s-item{ font-size:clamp(20px,6.2vw,32px); }
-  .hero .rot{ white-space:nowrap; }
+  .hero .rot{ white-space:normal; max-width:100%; }
 }
 
 /* Galleria video YouTube (pagina Video) */
