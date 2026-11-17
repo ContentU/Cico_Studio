@@ -6,6 +6,7 @@ import ClientInteractions from "../../components/ClientInteractions";
 import ServiceHero from "../../components/service/ServiceHero";
 import BandSection from "../../components/service/BandSection";
 import StepsSection from "../../components/service/StepsSection";
+import VideoGallery from "../../components/service/VideoGallery";
 import Showcase from "../../components/service/Showcase";
 import WhyStack from "../../components/service/WhyStack";
 import FaqSection from "../../components/service/FaqSection";
@@ -65,6 +66,7 @@ export default async function ServicePage({ params }) {
           intro={page.showcase.intro}
           items={projects}
         />
+        {params.servizio === "video-hotel" && <VideoGallery />}
         <WhyStack why={page.why} images={images.cards} />
         <FaqSection faq={page.faq} />
       </main>

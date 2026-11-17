@@ -90,7 +90,7 @@ export default function ClientInteractions() {
       serviziPanelEls.forEach((p, idx) => p.classList.toggle("active", idx === i));
     }
     function updateServizi() {
-      if (!serviziPin || !serviziProgress || window.innerWidth <= 880) return;
+      if (!serviziPin || !serviziProgress || window.innerWidth <= 900) return;
       const rect = serviziPin.getBoundingClientRect();
       const vh = window.innerHeight;
       const scrollable = rect.height - vh;
@@ -101,7 +101,7 @@ export default function ClientInteractions() {
     }
     const onServiziClick = (i) => () => {
       setActiveServizio(i);
-      if (serviziPin && window.innerWidth > 880) {
+      if (serviziPin && window.innerWidth > 900) {
         const rect = serviziPin.getBoundingClientRect();
         const vh = window.innerHeight;
         const scrollableRange = rect.height - vh;

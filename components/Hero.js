@@ -41,7 +41,7 @@ export default function Hero() {
         // (es. "Property Manager") può andare a capo su schermi stretti.
         const h0 = box.offsetHeight;
         box.style.height = h0 + "px";
-        rot.textContent = WORDS[i];
+        rot.textContent = WORDS[i] + "!";
         rot.classList.add("pre");
         rot.classList.remove("out");
         box.style.height = "auto";
@@ -74,9 +74,8 @@ export default function Hero() {
             <h1>
               Hey{" "}
               <span className="rot" ref={rotRef} suppressHydrationWarning>
-                Host
+                Host!
               </span>
-              !
             </h1>
           </div>
         </div>

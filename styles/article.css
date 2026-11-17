@@ -68,8 +68,8 @@
 .pg-article .b-card .meta{ margin-bottom:0; }
 .pg-article .b-card h3{ font-family:var(--font-head); font-size:21px; line-height:1.28; color:var(--violet); margin:12px 0 10px; }
 .pg-article .b-card p{ font-size:14.5px; color:var(--muted); line-height:1.55; margin-bottom:14px; }
-@media(max-width:980px){ .pg-article .related .blog-grid{ grid-template-columns:repeat(2,1fr); } }
-@media(max-width:620px){ .pg-article .related .blog-grid{ grid-template-columns:1fr; } }
+@media(max-width:900px){ .pg-article .related .blog-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:600px){ .pg-article .related .blog-grid{ grid-template-columns:1fr; } }
 
 /* Con foto reale il segnaposto "foto in arrivo" non deve comparire */
 .pg-article .has-image::after{ content:none !important; }

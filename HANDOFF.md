@@ -102,3 +102,7 @@ Ordine: Hero tipografica (3 righe) → Portfolio (2 colonne, foto 3:2, selezione
 - Favicon: solo SVG (eventuali PNG/ico per Safari e iOS da aggiungere).
 
 Vedi "Cosa manca ancora" in `README.md`.
+
+## Media query (novembre 2026)
+Breakpoint unificati: **600** (telefoni piccoli), **760** (mobile / picture source hero), **900** (layout mobile: stage Servizi, griglie, soglia JS), **1100** (tablet largo), **1180** (menu/burger), **1400** (schermi grandi), più `hover:hover` e `prefers-reduced-motion`.
+Query sull'altezza: `(min-width:901px) and (max-height:820px)` e `(max-height:700px)` per lo stage Servizi (portatili 14" retina ≈ 1512×860, display del cliente). Nuova galleria video YouTube (click-to-load) in `components/service/VideoGallery.js`, mostrata solo su /video-hotel.
