@@ -4,17 +4,25 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Sparkle from "./Sparkle";
 
-// Caricamento di mezzo secondo quando si cambia pagina, così si capisce che
-// la nuova pagina si sta caricando. Parte al clic su un link interno e
-// scompare quando la nuova pagina è pronta (minimo ~0,5 s).
-const MIN_MS = 500;
+// Transizione tra pagine: una tendina gialla con la scintilla CICO sale dal
+// basso al clic su un link interno e, quando la nuova pagina è pronta, scorre
+// verso l'alto scoprendola. Dura circa mezzo secondo in entrata + uscita.
+const MIN_MS = 620; // tempo minimo dal clic prima di scoprire la nuova pagina
 
 export default function PageLoader() {
   const pathname = usePathname();
-  const [on, setOn] = useState(false);
+  const [phase, setPhase] = useState("idle"); // idle | in | out
+  const resetTimer = useRef(null);
   const started = useRef(0);
   const safety = useRef(null);
   const hideTimer = useRef(null);
+
+  const reveal = () => {
+    setPhase("out");
+    started.current = 0;
+    clearTimeout(resetTimer.current);
+    resetTimer.current = setTimeout(() => setPhase("idle"), 700);
+  };
 
   useEffect(() => {
     const onClick = (e) => {
@@ -30,17 +38,21 @@ export default function PageLoader() {
       if (url.origin !== window.location.origin) return;
       if (url.pathname === window.location.pathname) return; // stessa pagina / ancora
       started.current = performance.now();
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       clearTimeout(hideTimer.current);
-      setOn(true);
+      clearTimeout(resetTimer.current);
+      setPhase("in");
       clearTimeout(safety.current);
-      safety.current = setTimeout(() => setOn(false), 6000);
+      safety.current = setTimeout(() => reveal(), 6000);
     };
     document.addEventListener("click", onClick);
     return () => {
       document.removeEventListener("click", onClick);
       clearTimeout(safety.current);
       clearTimeout(hideTimer.current);
+      clearTimeout(resetTimer.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // la nuova pagina è pronta: spegni il loader (almeno MIN_MS dopo il clic)
@@ -48,14 +60,11 @@ export default function PageLoader() {
     if (!started.current) return;
     const wait = Math.max(0, MIN_MS - (performance.now() - started.current));
     clearTimeout(hideTimer.current);
-    hideTimer.current = setTimeout(() => {
-      setOn(false);
-      started.current = 0;
-    }, wait);
+    hideTimer.current = setTimeout(reveal, wait);
   }, [pathname]);
 
   return (
-    <div className={"page-loader" + (on ? " on" : "")} aria-hidden="true">
+    <div className={"page-loader" + (phase === "in" ? " in" : phase === "out" ? " out" : "")} aria-hidden="true">
       <Sparkle />
     </div>
   );

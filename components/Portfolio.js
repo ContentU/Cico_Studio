@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { getHomePortfolio, fotoVideoTags } from "../lib/wp";
+import { getHomePortfolio } from "../lib/wp";
 import { coverProps } from "../lib/media";
 
 // Selezione di progetti per la home: quelli con tag "homepage" in WordPress
 // (in ordine di data di pubblicazione). Copertina = Featured Image del
-// progetto; sulle card restano visibili solo i tag Foto/Video.
+// progetto; sulle card: titolo, localita' e tipologia cliente (compatte).
 export default async function Portfolio() {
-  const items = await getHomePortfolio(6, 4);
+  const items = await getHomePortfolio(4);
   return (
     <section className="portfolio portfolio-home" id="portfolio">
       <div className="section-head">
@@ -26,13 +26,9 @@ export default async function Portfolio() {
               <div className={`p-media ${cover.className}`} style={cover.style} />
               <div className="p-body">
                 <h3>{item.title}</h3>
-                <div className="tags">
-                  {fotoVideoTags(item).map((t) => (
-                    <span className="tag cat" key={t}>
-                      {t}
-                    </span>
-                  ))}
-                </div>
+                <p className="p-meta">
+                  {[item.localita, item.tipologia || item.macroarea].filter(Boolean).join(" · ")}
+                </p>
               </div>
             </Link>
           );
