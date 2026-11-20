@@ -39,6 +39,9 @@ export default async function PortfolioIndexPage() {
                 <div className={`p-media ${cover.className}`} style={cover.style} />
                 <div className="p-body">
                   <h3>{item.title}</h3>
+                  <p className="p-meta">
+                    {[item.localita, item.tipologia || item.macroarea].filter(Boolean).join(" · ")}
+                  </p>
                   <div className="tags">
                     {fotoVideoTags(item).map((t) => (
                       <span className="tag cat" key={t}>

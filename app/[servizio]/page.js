@@ -60,12 +60,14 @@ export default async function ServicePage({ params }) {
             extra
           />
         )}
-        <Showcase
-          label={page.showcase.label}
-          title={page.showcase.title}
-          intro={page.showcase.intro}
-          items={projects}
-        />
+        {params.servizio !== "video-hotel" && (
+          <Showcase
+            label={page.showcase.label}
+            title={page.showcase.title}
+            intro={page.showcase.intro}
+            items={projects}
+          />
+        )}
         {params.servizio === "video-hotel" && <VideoGallery />}
         <WhyStack why={page.why} images={images.cards} />
         <FaqSection faq={page.faq} />

@@ -8,6 +8,7 @@ export default function ProjectTitle({ item }) {
         {item.title}
       </div>
       <h1 className="project-title">{item.title}</h1>
+      {item.sottotitolo && <p className="project-subtitle">{item.sottotitolo}</p>}
       <div className="tags project-tags-row">
         {item.macroarea && <span className="tag cat">{item.macroarea}</span>}
         {item.tags.map((t) => (

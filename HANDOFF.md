@@ -108,3 +108,17 @@ Breakpoint unificati: **600** (telefoni piccoli), **760** (mobile / picture sour
 Query sull'altezza: `(min-width:901px) and (max-height:820px)` e `(max-height:700px)` per lo stage Servizi (portatili 14" retina ≈ 1512×860, display del cliente). Nuova galleria video YouTube (click-to-load) in `components/service/VideoGallery.js`, mostrata solo su /video-hotel.
 
 **Tipografia fluida:** variabili `--fs-body/--fs-lead/--fs-card/--fs-small` in fondo a `app/globals.css` (da 1100px, ancorate a 1512px, con tetto a ~1920px). Per rendere i testi più grandi/piccoli si cambiano solo questi valori.
+
+## Revisione 18/11 – Portfolio e Video (fasi 1-2)
+- **Campi ACF usati:** `sottotitolo` (Text) e `reel_1`, `reel_2`, `reel_3` (oEmbed YouTube/Shorts), tutti facoltativi (`lib/wp.js`).
+- **Singolo progetto:** titolo + sottotitolo più piccolo (`.project-subtitle`); sezione "In formato social" con fino a 3 reel (`components/portfolio/Reels.js`).
+- **Home:** mostra TUTTI i progetti col tag "homepage" (nessun limite), in ordine di data di pubblicazione; card compatte con titolo e "località · tipologia (Tipologia ACF, ripiego Macroarea)", senza tag Foto/Video. Mobile: margini 14px, angoli 10px.
+- **/portfolio:** card con "località · tipologia (Tipologia ACF, ripiego Macroarea)" e tag Foto/Video.
+- **Pagina Video:** niente più progetti del portfolio sotto "Storie in movimento": solo i video YouTube (click-to-load, miniature HD con ripiego) e i 3 reel verticali (primo: 0XFu0dzBAXU).
+
+## Revisione 18/11 – Home (fase 4, variante splash B)
+- **Splash** (`components/Splash.js`, solo home): logo CICO + nome esteso + scintilla, ~1,9 s, una volta per sessione (`?splash=1` per rivederlo, saltato con `prefers-reduced-motion`).
+- **Intro Servizi:** foto a tutta larghezza con testo in sovrimpressione (`public/images/home/home-text-desktop.webp` 16:9, `home-text-mobile.webp` 4:3), al posto del box testo; "CICO realizza…" rimosso. L'etichetta "Servizi" è ora nello stage fisso.
+- **Servizi su mobile:** stage fisso con scorrimento verticale (280vh) che cambia Hotel/B&B/Host; barra di avanzamento, hint "Scorri…" e voci cliccabili.
+- **Transizione tra pagine:** `PageLoader` ora è una tendina gialla con scintilla (entra al clic, scopre la nuova pagina; minimo ~0,6 s; disattivata con `prefers-reduced-motion`).
+- **Hero:** frase di posizionamento più grande/viola; "!" già dentro la parola che ruota.

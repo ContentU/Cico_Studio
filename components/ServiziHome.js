@@ -3,10 +3,9 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 
-// Sezione Servizi della home: titolo e testo (sfondo rosato) + sezione fissata
-// con foto a destra e testo a sinistra. Su desktop lo scroll cambia voce
-// (Hotel, B&B, Host) e foto; cliccando sulla lista si salta alla voce.
-// Su mobile nessun blocco dello scroll: si tocca la voce.
+// Servizi della home: intro con foto a tutta larghezza + sezione fissata con
+// foto e testo. Lo scroll verticale cambia voce (Hotel, B&B, Host) e foto, su
+// desktop e su mobile; cliccando sulla lista si salta alla voce.
 const COLORS = ["#0E7173", "#ED254E", "#2C0E37"];
 const SERVIZI = [
   {
@@ -70,7 +69,6 @@ export default function ServiziHome() {
     let raf = 0;
     const update = () => {
       raf = 0;
-      if (window.innerWidth <= 900) return;
       const rect = pin.getBoundingClientRect();
       const scrollable = rect.height - window.innerHeight;
       const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
@@ -83,11 +81,9 @@ export default function ServiziHome() {
     const handlers = items.map((item, i) => {
       const go = () => {
         setActive(i);
-        if (window.innerWidth > 900) {
-          const rect = pin.getBoundingClientRect();
-          const range = rect.height - window.innerHeight;
-          window.scrollTo({ top: window.scrollY + rect.top + ((i + 0.5) / items.length) * range, behavior: "smooth" });
-        }
+        const rect = pin.getBoundingClientRect();
+        const range = rect.height - window.innerHeight;
+        window.scrollTo({ top: window.scrollY + rect.top + ((i + 0.5) / items.length) * range, behavior: "smooth" });
       };
       const key = (e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -115,28 +111,31 @@ export default function ServiziHome() {
 
   return (
     <>
-      <section className="sx-intro" id="servizi-intro">
-        <div className="sx-intro-in">
-          <span className="section-label">Servizi</span>
-          <div className="sx-intro-grid">
-            <h2>Le&nbsp;fotografie mostrano molto più di&nbsp;uno&nbsp;spazio.</h2>
-            <div className="sx-intro-text">
-              <p className="im-lead">
-                Raccontano il carattere di una struttura, fanno percepire la qualità dell&apos;ospitalità e aiutano gli
-                ospiti a capire cosa li aspetta.
-              </p>
-              <span className="im-rule" aria-hidden="true" />
-              <p className="im-sub">
-                CICO realizza fotografie e video per hotel, B&amp;B e alloggi turistici in Sicilia, per portali, siti web e
-                comunicazione.
-              </p>
-            </div>
-          </div>
+      <section className="ph-intro" id="servizi-intro">
+        <picture>
+          <source media="(max-width:760px)" srcSet="/images/home/home-text-mobile.webp" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/home/home-text-desktop.webp"
+            alt="Terrazza di un hotel con giardino di cactus e lettino con telo CICO"
+            loading="lazy"
+          />
+        </picture>
+        <div className="ph-in">
+          <h2>Le&nbsp;fotografie mostrano molto più di&nbsp;uno&nbsp;spazio.</h2>
+          <p>
+            Raccontano il carattere di una struttura, fanno percepire la qualità dell&apos;ospitalità e aiutano gli ospiti
+            a capire cosa li aspetta.
+          </p>
         </div>
       </section>
       <section className="servizi-pin sf-pin" id="servizi" ref={pinRef}>
         <div className="sf-stage">
           <div className="sf-left">
+            <div className="sf-labelrow">
+              <span className="section-label sf-label">Servizi</span>
+              <span className="sf-hint">Scorri per vedere i tre servizi</span>
+            </div>
             <div className="servizi-list" id="serviziList">
               {SERVIZI.map((s, i) => (
                 <div
