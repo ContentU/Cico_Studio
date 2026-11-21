@@ -225,7 +225,6 @@ export default function ContactForm() {
             {status === "sending" ? "Invio in corso…" : "Invia richiesta"}{" "}
             <span className="arrow">→</span>
           </button>
-          <small>Ci vuole meno di un minuto.</small>
         </div>
         {status === "error" && (
           <p role="alert" style={{ marginTop: 14, color: "var(--watermelon)", fontSize: 14 }}>
