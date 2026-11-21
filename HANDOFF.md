@@ -122,3 +122,12 @@ Query sull'altezza: `(min-width:901px) and (max-height:820px)` e `(max-height:70
 - **Servizi su mobile:** stage fisso con scorrimento verticale (280vh) che cambia Hotel/B&B/Host; barra di avanzamento, hint "Scorri…" e voci cliccabili.
 - **Transizione tra pagine:** `PageLoader` ora è una tendina gialla con scintilla (entra al clic, scopre la nuova pagina; minimo ~0,6 s; disattivata con `prefers-reduced-motion`).
 - **Hero:** frase di posizionamento più grande/viola; "!" già dentro la parola che ruota.
+
+## Revisione 21/11
+- **Splash rifatto** sul video del cliente ("animazione cico.mp4"): viola scuro → scintilla rossa che si compone e ruota → forma rossa che si allarga → "cico" giallo + scintilla viola + nome esteso → l'intera schermata sale (cambio colore rosso→giallo). ~4,1 s prima dell'uscita; tempi in `components/Splash.js` (`HOLD_MS`) e nelle `animation-delay` del blocco `.splash*` in `globals.css`.
+- **Safari:** il blocco scroll dello splash non usa più `overflow:hidden` su `html` (rompeva lo stage fisso dei Servizi): listener su wheel/touchmove sulla durata dello splash; `body` usa `overflow-x:clip`. **Da verificare su Safari reale.**
+- **Intro con foto:** foto a destra sul fondo crema, bordo sinistro sfumato, testo viola a sinistra; su mobile testo sopra e foto quadrata sotto.
+- **Progetto:** sottotitolo sopra il testo descrittivo (`.scheda-sub`); i tag interni "homepage" e "luxury" non si mostrano più.
+- **Contatti:** tolto "Ci vuole meno di un minuto."
+- **Da fare su WordPress (ACF):** il campo sottotitolo ha il *Nome campo* vuoto (l'API restituisce `"" : "sottotitolo"`) → impostare nome `sottotitolo`; il campo `anno` va cambiato da Numero a **Testo**.
+- **Aperto:** invio mail del form Contatti (manca `CONTACT_WEBHOOK_URL`/integrazione Brevo).

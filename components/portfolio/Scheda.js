@@ -18,6 +18,7 @@ export default function Scheda({ item }) {
   return (
     <section className="scheda-section">
       <div className="scheda-desc">
+        {item.sottotitolo && <p className="scheda-sub">{item.sottotitolo}</p>}
         <div className="scheda-rich" dangerouslySetInnerHTML={{ __html: sanitizeRichText(item.descrizioneBreve) }} />
       </div>
       <div className="scheda-specs">
