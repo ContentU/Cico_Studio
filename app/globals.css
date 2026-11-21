@@ -656,11 +656,15 @@ nav.main-links > *{ flex-shrink:0; white-space:nowrap; }
 
 .footer-place{ display:block; font-size:14px; margin-bottom:12px; color:rgba(251,244,236,0.85); }
 
-/* ---------- Transizione tra le pagine (tendina) ---------- */
-.page-loader{ position:fixed; inset:0; z-index:300; background:var(--yellow); display:flex; align-items:center; justify-content:center; transform:translateY(100%); pointer-events:none; will-change:transform; }
-.page-loader.in{ transform:translateY(0); transition:transform .46s cubic-bezier(.7,0,.2,1); pointer-events:auto; }
-.page-loader.out{ transform:translateY(-100%); transition:transform .6s cubic-bezier(.7,0,.2,1); }
-.page-loader svg{ width:clamp(64px,10vw,104px); height:auto; color:var(--violet); animation:plSpin 1.1s linear infinite; }
+/* ---------- Loader tra le pagine (dissolvenza + scintilla + barra) ---------- */
+.page-loader{ position:fixed; inset:0; z-index:300; background:var(--yellow); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; pointer-events:none; transition:opacity .4s ease, visibility 0s .4s; }
+.page-loader.on{ opacity:1; visibility:visible; pointer-events:auto; transition:opacity .25s ease, visibility 0s 0s; }
+.pl-inner{ display:flex; flex-direction:column; align-items:center; gap:clamp(18px,2.4vw,28px); }
+.page-loader svg{ width:clamp(64px,9vw,96px); height:auto; color:var(--violet); animation:plSpin 1.1s linear infinite; }
+.pl-track{ width:clamp(110px,14vw,170px); height:3px; border-radius:3px; background:rgba(44,14,55,.14); overflow:hidden; }
+.pl-bar{ height:100%; width:100%; background:var(--violet); border-radius:3px; }
+.page-loader.on .pl-bar{ animation:plBar 1.4s cubic-bezier(.25,.6,.3,1) forwards; }
+@keyframes plBar{ from{ width:0; } to{ width:92%; } }
 @keyframes plSpin{ to{ transform:rotate(360deg); } }
 @media(prefers-reduced-motion:reduce){ .page-loader{ display:none; } }
 
@@ -959,10 +963,10 @@ html.no-splash .splash{ display:none; }
    (la parte sinistra generata con l'AI si vede il meno possibile); testo a sinistra. */
 .ph-intro{ background:transparent; height:auto; min-height:0; display:flex; align-items:center; padding:clamp(48px,6vw,96px) 0; }
 .ph-intro::after{ content:none; }
-.ph-intro picture{ position:absolute; top:0; right:0; bottom:0; width:66%; }
+.ph-intro picture{ position:absolute; top:0; right:0; bottom:0; left:auto; width:62%; }
 .ph-intro img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:right center;
-  -webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 42%); mask-image:linear-gradient(90deg, transparent 0%, #000 42%); }
-.ph-in{ position:relative; left:auto; bottom:auto; z-index:2; margin-left:clamp(24px,6vw,100px); max-width:min(560px,42%); color:var(--violet); }
+  -webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 55%); mask-image:linear-gradient(90deg, transparent 0%, #000 55%); }
+.ph-in{ position:relative; left:auto; bottom:auto; z-index:2; margin-left:clamp(24px,6vw,100px); max-width:min(560px,36%); color:var(--violet); }
 .ph-in h2{ color:var(--violet); }
 .ph-in p{ color:var(--muted); }
 .ph-intro{ min-height:clamp(460px,46vw,720px); }
