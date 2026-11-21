@@ -131,3 +131,5 @@ Query sull'altezza: `(min-width:901px) and (max-height:820px)` e `(max-height:70
 - **Contatti:** tolto "Ci vuole meno di un minuto."
 - **Da fare su WordPress (ACF):** il campo sottotitolo ha il *Nome campo* vuoto (l'API restituisce `"" : "sottotitolo"`) → impostare nome `sottotitolo`; il campo `anno` va cambiato da Numero a **Testo**.
 - **Aperto:** invio mail del form Contatti (manca `CONTACT_WEBHOOK_URL`/integrazione Brevo).
+
+- **Loader tra pagine (21/11):** `PageLoader` non è più una tendina ma un loader a dissolvenza: schermo giallo, scintilla che gira, barra di avanzamento; minimo 0,9 s (`MIN_MS`). Parte a ogni cambio pagina: clic su link interno (anche verso la stessa pagina), tasti avanti/indietro del browser; con `prefers-reduced-motion` è disattivato.
