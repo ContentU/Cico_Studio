@@ -32,7 +32,17 @@ export default function Hero() {
       timers.add(t);
     };
 
-    const interval = setInterval(() => {
+    // La rotazione parte solo a splash concluso, così la prima parola che si legge è "Host".
+    let interval = 0;
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      rot.textContent = WORDS[0] + "!";
+      i = 0;
+      interval = setInterval(tick, EVERY);
+    };
+    const tick = () => {
       if (document.hidden) return;
       rot.classList.add("out");
       later(() => {
@@ -56,9 +66,19 @@ export default function Hero() {
           box.style.height = "";
         }, 600);
       }, 380);
-    }, EVERY);
+    };
+    const splashActive = !document.documentElement.classList.contains("no-splash") && document.querySelector(".splash");
+    let fallback = 0;
+    if (splashActive) {
+      window.addEventListener("cico:splash-done", start, { once: true });
+      fallback = setTimeout(start, 9000); // sicurezza
+    } else {
+      start();
+    }
 
     return () => {
+      window.removeEventListener("cico:splash-done", start);
+      clearTimeout(fallback);
       clearInterval(interval);
       timers.forEach(clearTimeout);
     };
@@ -80,7 +100,7 @@ export default function Hero() {
           </div>
         </div>
         <p className="hero-hook">
-          <strong>Il soggiorno comincia al check-in.</strong>{" "}
+          <strong>Il soggiorno comincia al <span className="nb">check-in</span>.</strong>{" "}
           <span>La scelta comincia dalle fotografie.</span>
         </p>
         <p className="hero-pos">Fotografia professionale e produzioni video per l&apos;ospitalità in Sicilia e oltre.</p>
