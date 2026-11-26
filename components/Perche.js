@@ -8,7 +8,6 @@ import Link from "next/link";
 // alla pubblicazione della testimonianza vanno confermati con il cliente.
 export default function Perche() {
   const audioRef = useRef(null);
-  const yearRef = useRef(null);
   const sectionRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
@@ -37,24 +36,11 @@ export default function Perche() {
     const root = sectionRef.current;
     if (!root) return;
     const cards = root.querySelectorAll(".pcb-card");
-    const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const count = () => {
-      const yr = yearRef.current;
-      if (!yr || rm) return;
-      const t0 = performance.now();
-      const step = (t) => {
-        const k = Math.min(1, (t - t0) / 1400);
-        yr.textContent = Math.round(1960 + 50 * (1 - Math.pow(1 - k, 3)));
-        if (k < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
     const io = new IntersectionObserver(
       (es) =>
         es.forEach((e) => {
           if (e.isIntersecting) {
             e.target.classList.add("in");
-            if (e.target.classList.contains("pcb-year")) count();
             io.unobserve(e.target);
           }
         }),
@@ -113,7 +99,7 @@ export default function Perche() {
             </div>
           </article>
           <article className="pcb-card pcb-year">
-            <div className="pcb-num" ref={yearRef}>2010</div>
+            <div className="pcb-num">2010</div>
             <h3>Da allora, solo ospitalità.</h3>
             <p>
               Fotografiamo hotel, B&amp;B e case per chi accoglie. <strong>Sul campo, nei webinar e in formazione</strong> con i professionisti del settore.

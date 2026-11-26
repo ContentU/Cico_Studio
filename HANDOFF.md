@@ -133,3 +133,12 @@ Query sull'altezza: `(min-width:901px) and (max-height:820px)` e `(max-height:70
 - **Aperto:** invio mail del form Contatti (manca `CONTACT_WEBHOOK_URL`/integrazione Brevo).
 
 - **Loader tra pagine (21/11):** `PageLoader` non è più una tendina ma un loader a dissolvenza: schermo giallo, scintilla che gira, barra di avanzamento; minimo 0,9 s (`MIN_MS`). Parte a ogni cambio pagina: clic su link interno (anche verso la stessa pagina), tasti avanti/indietro del browser; con `prefers-reduced-motion` è disattivato.
+
+## Revisione 23/11
+- **Hero:** "check-in" non va più a capo (`.nb`). La rotazione delle parole parte a splash concluso (evento `cico:splash-done`), così dopo lo splash si legge "Hey Host!".
+- **Intro con foto:** CSS riscritto in un solo blocco; su mobile testo sopra, foto quadrata sotto, meno spazio dal blocco precedente.
+- **Portfolio in home (desktop):** nome struttura a sinistra, "località · tipologia" a destra sulla stessa riga; su mobile restano impilati.
+- **Perché CICO:** tolto il contatore da 1960 a 2010: "2010" è fisso.
+- **Form Contatti → email via Brevo** (`app/api/contatti/route.js`): su **Netlify → Site settings → Environment variables** impostare `BREVO_API_KEY` (la stessa della newsletter), `CONTACT_FROM_EMAIL` (mittente **verificato** in Brevo, es. hello@cicostudio.it) e, se serve, `CONTACT_TO_EMAIL` (default hello@cicostudio.it); poi ri-deploy. Per la consegna: dominio autenticato in Brevo (DKIM) e SPF unico `include:_spf.aruba.it include:spf.brevo.com`. Senza queste variabili il form risponde ancora "Servizio non configurato".
+
+- **Form Contatti via SMTP Aruba (scelta finale, 25/11):** `app/api/contatti/route.js` invia con `nodemailer` da `SMTP_USER`/`SMTP_PASS` (host `smtps.aruba.it`, porta 465). Su **Netlify → Environment variables**: `SMTP_USER` (indirizzo completo della casella), `SMTP_PASS` (password della casella), opzionali `CONTACT_TO_EMAIL`, `SMTP_HOST`, `SMTP_PORT`; poi ri-deploy. Brevo non serve per il form (resta per la newsletter). Priorità: SMTP → Brevo → webhook. Dipendenza nuova: `nodemailer` (aggiornati `package.json`/`package-lock.json`).

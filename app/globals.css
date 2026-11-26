@@ -906,21 +906,6 @@ nav.main-links > *{ flex-shrink:0; white-space:nowrap; }
 @media(min-width:1400px){ .hero-pos{ font-size:clamp(24px,1.9vw,32px); } }
 @media(max-width:760px){ .hero-pos{ font-size:19px; } .hero .rot{ white-space:normal; max-width:100%; } }
 
-.ph-intro{ position:relative; z-index:1; height:min(100vh,56.25vw); min-height:540px; overflow:hidden; background:#9a9ea6; }
-.ph-intro picture, .ph-intro img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
-.ph-intro::after{ content:''; position:absolute; inset:0; background:linear-gradient(90deg, rgba(44,14,55,.66) 0%, rgba(44,14,55,.38) 36%, rgba(44,14,55,0) 64%); }
-.ph-in{ position:absolute; z-index:2; left:clamp(24px,6vw,100px); bottom:clamp(40px,10vh,120px); max-width:min(640px,46%); color:#fff; }
-.ph-in h2{ font-family:var(--font-head); font-weight:700; font-size:clamp(34px,4.4vw,66px); line-height:1.05; letter-spacing:-.01em; text-wrap:balance; }
-.ph-in p{ margin-top:clamp(16px,2vw,28px); font-size:clamp(18px,1.5vw,24px); line-height:1.45; color:rgba(255,255,255,.94); max-width:30em; }
-@media(max-width:760px){
-  .ph-intro{ height:min(86svh,640px); min-height:0; }
-  .ph-intro img{ object-position:78% 55%; }
-  .ph-intro::after{ background:linear-gradient(0deg, rgba(44,14,55,.84) 0%, rgba(44,14,55,.5) 42%, rgba(44,14,55,0) 72%); }
-  .ph-in{ left:22px; right:22px; bottom:30px; max-width:none; }
-  .ph-in h2{ font-size:clamp(30px,8.6vw,40px); }
-  .ph-in p{ font-size:16px; }
-}
-
 .sf-labelrow{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; }
 .sf-label{ display:block; margin-bottom:6px; }
 .sf-hint{ display:none; font-size:12px; color:var(--muted); }
@@ -960,23 +945,33 @@ html.no-splash .splash{ display:none; }
 @media(prefers-reduced-motion:reduce){ .splash{ display:none; } }
 
 /* Intro con foto: foto a destra sul fondo crema della pagina, bordo sinistro sfumato
-   (la parte sinistra generata con l'AI si vede il meno possibile); testo a sinistra. */
-.ph-intro{ background:transparent; height:auto; min-height:0; display:flex; align-items:center; padding:clamp(48px,6vw,96px) 0; }
-.ph-intro::after{ content:none; }
+   (la parte sinistra generata con l'AI si vede il meno possibile); testo viola a sinistra.
+   Mobile: testo sopra, foto quadrata sotto con bordo superiore sfumato. */
+.ph-intro{ position:relative; z-index:1; display:flex; align-items:center; overflow:hidden; background:transparent;
+  min-height:clamp(460px,46vw,720px); padding:clamp(48px,6vw,96px) 0; }
 .ph-intro picture{ position:absolute; top:0; right:0; bottom:0; left:auto; width:62%; }
-.ph-intro img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:right center;
+.ph-intro img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:right center; display:block;
   -webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 55%); mask-image:linear-gradient(90deg, transparent 0%, #000 55%); }
-.ph-in{ position:relative; left:auto; bottom:auto; z-index:2; margin-left:clamp(24px,6vw,100px); max-width:min(560px,36%); color:var(--violet); }
-.ph-in h2{ color:var(--violet); }
-.ph-in p{ color:var(--muted); }
-.ph-intro{ min-height:clamp(460px,46vw,720px); }
+.ph-in{ position:relative; z-index:2; margin-left:clamp(24px,6vw,100px); max-width:min(560px,36%); }
+.ph-in h2{ font-family:var(--font-head); font-weight:700; font-size:clamp(34px,4.4vw,66px); line-height:1.05; letter-spacing:-.01em; text-wrap:balance; color:var(--violet); }
+.ph-in p{ margin-top:clamp(16px,2vw,28px); font-size:clamp(18px,1.5vw,24px); line-height:1.45; color:var(--muted); max-width:30em; }
 @media(max-width:760px){
-  .ph-intro{ display:block; min-height:0; height:auto; padding:56px 0 0; }
+  .ph-intro{ display:block; min-height:0; padding:8px 0 0; }
   .ph-in{ margin:0 22px; max-width:none; }
-  .ph-intro picture{ position:relative; inset:auto; display:block; width:100%; height:auto; margin-top:26px; }
+  .ph-in h2{ font-size:clamp(30px,8.6vw,40px); }
+  .ph-in p{ font-size:16px; margin-top:14px; }
+  .ph-intro picture{ position:relative; inset:auto; display:block; width:100%; margin-top:18px; }
   .ph-intro img{ position:relative; inset:auto; width:100%; height:auto; aspect-ratio:1/1; object-position:78% center;
     -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 24%); mask-image:linear-gradient(180deg, transparent 0%, #000 24%); }
 }
 
 /* Progetto: sottotitolo sopra il testo descrittivo */
 .scheda-sub{ font-family:var(--font-body); font-weight:600; font-size:clamp(20px,2vw,26px); line-height:1.3; color:var(--violet); margin:0 0 18px; max-width:28em; }
+
+/* Card portfolio in home (desktop): nome struttura a sinistra, località · tipologia a destra, stessa riga */
+@media(min-width:761px){
+  .portfolio-home .p-body{ display:flex; align-items:baseline; justify-content:space-between; gap:8px 20px; }
+  .portfolio-home .p-body h3{ margin-bottom:0; }
+  .portfolio-home .p-body .p-meta{ margin:0; text-align:right; flex-shrink:0; max-width:55%; }
+}
+.hero-hook .nb{ white-space:nowrap; }

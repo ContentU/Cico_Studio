@@ -57,6 +57,7 @@ export default function Splash() {
     };
     const t1 = setTimeout(() => {
       setPhase("done");
+      window.dispatchEvent(new Event("cico:splash-done"));
       try {
         sessionStorage.setItem(KEY, "1");
       } catch {}
